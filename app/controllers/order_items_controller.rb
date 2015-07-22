@@ -1,40 +1,25 @@
 class OrderItemsController < ApplicationController
-  before_action :find_item, except: :add
+  before_action :find_item, except: :add_to_cart
 
-  def add
-    item = OrderItem.create(create_params)
+  # more increases the quantity of an item in the cart
+  def more # OrderItem.more <-- gimme more of this OrderItem
+    @item.more!
 
-    flash[:error] = item.errors.messages if item.errors.messages
-
-    redirect_to root
-  end
-
-  def more
-    max_limit = 0
-
-    # Orders.all.select do |order|
-    #   order.status == "pending" && order.order_items.select do |item|
-    #     # item.product.id ==
-    #   end
-    # end
-
-    # @item.increment!(:quantity_ordered, 1) unless @item.product.stock == @item.quantity_ordered
-
-    @item.increment!(:quantity_ordered, 1)
+    flash[:error] = @item.errors if @item.errors
 
     redirect_to cart_path
   end
 
-  def less
-    if @item.quantity_ordered == 1
-      flash[:error] = "You cannot decrease the quantity of #{ @item.display_name } any further. You must remove it from your cart."
-    end
+  # less decreases the quantity of an item in the cart
+  def less # OrderItem.less <-- gimme less of this OrderItem
+    @item.less!
 
-    @item.decrement!(:quantity_ordered, 1) unless @item.quantity_ordered == 1
-
+    flash[:error] = @item.errors if @item.errors
+    
     redirect_to cart_path
   end
 
+  # removes an item from the cart by destroying the underlying OrderItem object
   def destroy
     @item.destroy
 
@@ -42,10 +27,6 @@ class OrderItemsController < ApplicationController
   end
 
   private
-    def create_params
-      params.permit(item: [:product_id, :category_id, :quantity_ordered])[:item]
-    end
-
     def find_item
       @item = OrderItem.find_by(id: params[:id])
     end

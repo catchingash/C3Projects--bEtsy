@@ -1,40 +1,59 @@
 class OrdersController < ApplicationController
-  before_action :find_order
-  before_action :redirect_illegal_actions, only: [:cart, :add, :remove, :checkout]
+  before_action :set_order, only: [:add_to_cart, :cart, :checkout, :update, :receipt]
+  before_action :set_product, only: [:add_to_cart]
+
+  def add_to_cart
+    if @order.already_has_product?(@product)
+      flash[:error] = "This item is already in your cart!" # TODO: perhaps change this to incrementing the count in the cart?
+    else
+      OrderItem.create(product_id: @product.id, order_id: @order.id, quantity_ordered: 1)
+    end
+
+    redirect_to product_path(@product)
+  end
 
   def cart; end
 
   def checkout; end
 
-  def receipt
-    # guard clauses
-    redirect_to checkout_path if order_mutable?
-    redirect_to root_path if (@order.status == "complete") || (@order.status == "cancelled")
+  def update
+    # add buyer info to order & change status
+    # handling for error messages / bad input if/else type thing
+    @order.update(checkout_params)
 
-    # code to display finalized order
+    redirect_to receipt_path
+  end
+
+  def receipt
+    if @order.status == "paid"
+      render :receipt
+
+      # will this work? no?
+      reset_session # it does!
+    else
+      # redirect to somewhere more logical
+      redirect_to root_path
+    end
   end
 
   private
-    def add_to_cart_params
-      # t.integer :product_id
-      # t.integer :order_id
-      # t.integer :quantity_ordered
-      params.permit(order_item: [:product_id, :order_id, :quantity_ordered])[:order_item]
+    def checkout_params
+      order_info = params.permit(order: [:buyer_name, :buyer_email, :buyer_address, :buyer_card_short, :buyer_card_expiration])[:order]
+      order_info[:status] = "paid"
+
+      return order_info
     end
 
-    def find_order
-      # note: not using params :id yet! >_>
-      # @order = Order.find_by(id: session[:order_id]) if session[:order_id] == params[:order_id] || session[:order_id] == params[:id]
-      @order = Order.first
-      @order_items = @order.order_items
-      @order_items_count = @order_items.count
+    def set_order
+      if session[:order_id] && Order.find_by(id: session[:order_id])
+        @order = Order.find(session[:order_id])
+      else
+        @order = Order.create
+        session[:order_id] = @order.id
+      end
     end
 
-    def redirect_illegal_actions
-      redirect_to receipt_path unless order_mutable?
-    end
-
-    def order_mutable?
-      @order.status == "pending"
+    def set_product
+      @product = Product.find(params[:id])
     end
 end

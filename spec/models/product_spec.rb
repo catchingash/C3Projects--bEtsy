@@ -77,4 +77,24 @@ RSpec.describe Product, type: :model do
       end
     end
   end
+
+  describe "#average_rating" do
+    it "returns an average rating for a product" do
+      product = Product.create(name: 'a', price: 1, seller_id: 1, stock: 1)
+      review = Review.create(rating: 1, product_id: 1)
+      review2 = Review.create(rating: 3, product_id: 1)
+
+      expect(product.average_rating).to eq 2
+    end
+
+    it "returns a message if no ratings" do
+      product = Product.create(name: 'a', price: 1, seller_id: 1, stock: 1)
+
+      expect(product.average_rating).to eq "No reviews"
+    end
+  end
+
+  describe "has_available_stock?" do
+    # code to test this goes here
+  end
 end

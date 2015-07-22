@@ -1,21 +1,29 @@
 Rails.application.routes.draw do
   root "welcome#index"
 
-  resources :categories, except: :destroy
-  resources :sellers, only: [:index, :show]
+  get "/login", to: "sessions#new", as: "login"
+  post "/login", to: "sessions#create"
+  delete "/logout", to: "sessions#destroy", as: "logout"
 
-  get 'products', to: 'products#index'
-  get 'products/:id', to: 'products#show', as: 'product'
+  resources :categories, except: :destroy
+  resources :sellers, only: [:index, :show, :new, :create] do
+    resources :products, only: [:new, :create]
+  end
+  resources :products, except: [:new, :create, :destroy]
+
+  get '/products/:id/reviews/new', to: 'reviews#new', as: "new_review"
+  post '/products/:id/reviews/new', to: 'reviews#create'
+
 
   scope :cart do
     get "/", to: "orders#cart", as: "cart"
     get "checkout", to: "orders#checkout"
-    post "checkout", to: "orders#verify"
+    patch "checkout", to: "orders#update"
     get "receipt", to: "orders#receipt"
   end
 
   # adding an item to the cart
-  post "/cart" => "order_items#add", as: "add_item" # can also use cart_path
+  post "/products/:id/add", to: "orders#add_to_cart", as: "add_item"
 
   # adjusting the quantity of an item in the cart
   patch "/cart/item/:id/more" => "order_items#more", as: "more_item"
