@@ -10,4 +10,42 @@ class Product < ActiveRecord::Base
   validates :seller_id, presence: true, numericality: { only_integer: true }
   validates :stock, presence: true, numericality: { only_integer: true }
 
+  def average_rating
+    rating_total = 0.0
+    total_num_reviews = self.reviews.count
+
+    return 0 if total_num_reviews == 0
+
+    self.reviews.each do |review|
+      rating_total += review[:rating]
+    end
+
+    average_rating = (rating_total/total_num_reviews).round(1)
+    return average_rating
+  end
+
+  def has_available_stock?
+    (quantity_tied_up_in_pending_transactions + 1) <= stock
+  end
+
+  def self.top_products
+    sorted_products = Product.all.sort_by { |product| product.average_rating }.reverse!
+    top_products = sorted_products[0..11]
+  end
+
+  def update_stock
+    # code to reduce stock when order is paid or shipped
+    # note: if we go with shipped / complete, the private method
+    # quantity_tied_up_in_pending_transactions will need to be updated to
+    # account for paid orders as well -J
+  end
+
+  private
+    def quantity_tied_up_in_pending_transactions
+      items_also_pending = order_items.select { |item| item.order.status == "pending" }
+      quantity_pending_array = items_also_pending.map { |item| item.quantity_ordered }
+      quantity_pending = quantity_pending_array.reduce(0) { |sum, current_quantity| sum += current_quantity }
+
+      return quantity_pending
+    end
 end
