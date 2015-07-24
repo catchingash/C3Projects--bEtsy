@@ -10,10 +10,10 @@ Rails.application.routes.draw do
   resources :categories, only: [:index, :show, :new, :create]
 
   patch "/products/:id/retire", to: "products#retire", as: "retire_product"
-  patch "/products/:id/add_stock", to: "products#add_stock", as: "add_product_stock"
 
   resources :sellers, only: [:index, :show, :new, :create] do
     get "products", to: "products#seller", as: "products"
+    get "inventory", to: "products#inventory", as: "inventory" # OPTIMIZE: consider adding this content to the dashboard or seller products page?
     resources :products, only: [:new, :create]
     resources :orders, only: [:index, :show]
 
