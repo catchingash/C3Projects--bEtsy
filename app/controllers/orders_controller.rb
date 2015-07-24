@@ -1,40 +1,75 @@
 class OrdersController < ApplicationController
-  before_action :find_order
-  before_action :redirect_illegal_actions, only: [:cart, :add, :remove, :checkout]
+  before_action :set_order, only: [:cart, :checkout, :add_to_cart, :update, :receipt]
+  before_action :set_seller_order, only: [:show]
+  before_action :set_product, only: [:add_to_cart]
+  before_action :set_seller, only: [:index, :show]
+  before_action :require_seller_login, only: [:index, :show]
 
   def cart; end
 
-  def checkout; end
+  def checkout
+    @order.prepare_checkout!
+    flash[:errors] = @order.errors if @order.errors
+  end
+
+  def add_to_cart # OPTIMIZE: consider moving this elsewhere, i.e. ProductsController or OrderItemsController.
+    order_item = OrderItem.new(product_id: @product.id, order_id: @order.id, quantity_ordered: 1)
+    if order_item.save
+      flash[:messages] = MESSAGES[:successful_add_to_cart]
+    else
+      flash[:errors] = order_item.errors
+    end
+
+    redirect_to product_path(@product)
+  end
+
+  def update
+    if @order.checkout!(checkout_params)
+      redirect_to receipt_path
+    else
+      flash.now[:errors] = @order.errors
+      @order.attributes = checkout_params
+      render :checkout
+    end
+  end
 
   def receipt
-    # guard clauses
-    redirect_to checkout_path if order_mutable?
-    redirect_to root_path if (@order.status == "complete") || (@order.status == "cancelled")
+    if @order.status == "paid"
+      render :receipt
+      session[:order_id] = nil
+    else
+      redirect_to root_path
+    end
+  end
 
-    # code to display finalized order
+  def index
+    @orders = @seller.orders
+    flash.now[:errors] = ERRORS[:no_orders] if @orders.length == 0
+  end
+
+  def show
+    @items = @order.order_items.select { |item| item.seller.id == @seller.id }
   end
 
   private
-    def add_to_cart_params
-      # t.integer :product_id
-      # t.integer :order_id
-      # t.integer :quantity_ordered
-      params.permit(order_item: [:product_id, :order_id, :quantity_ordered])[:order_item]
+    def checkout_params
+      params.permit(order: [:buyer_name, :buyer_email, :buyer_address, :buyer_card_short, :buyer_card_expiration])[:order]
     end
 
-    def find_order
-      # note: not using params :id yet! >_>
-      # @order = Order.find_by(id: session[:order_id]) if session[:order_id] == params[:order_id] || session[:order_id] == params[:id]
-      @order = Order.first
-      @order_items = @order.order_items
-      @order_items_count = @order_items.count
+    def set_order
+      if session[:order_id] && Order.find_by(id: session[:order_id])
+        @order = Order.find(session[:order_id])
+      else
+        @order = Order.create
+        session[:order_id] = @order.id
+      end
     end
 
-    def redirect_illegal_actions
-      redirect_to receipt_path unless order_mutable?
+    def set_seller_order
+      @order = Order.find(params[:order_id] ? params[:order_id] : params[:id])
     end
 
-    def order_mutable?
-      @order.status == "pending"
+    def set_product
+      @product = Product.find(params[:id])
     end
 end

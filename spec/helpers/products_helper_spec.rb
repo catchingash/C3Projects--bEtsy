@@ -1,15 +1,21 @@
 require 'rails_helper'
 
-# Specs in this file have access to a helper object that includes
-# the ProductsHelper. For example:
-#
-# describe ProductsHelper do
-#   describe "string concat" do
-#     it "concats two strings with spaces" do
-#       expect(helper.concat_strings("this","that")).to eq("this that")
-#     end
-#   end
-# end
 RSpec.describe ProductsHelper, type: :helper do
-  pending "add some examples to (or delete) #{__FILE__}"
+  describe "#retire_product_text" do
+    it "outputs some text for the retire product button" do
+      product = Product.create(name: "asdfasjkhdf", stock: 1, price: 1, seller_id: 1)
+
+      expect(retire_product_text(product)).to eq("Retire this Product")
+    end
+
+    it "alters the text based on the product's retired status" do
+      product = Product.create(name: "asdfasjkhdf", stock: 1, price: 1, seller_id: 1)
+
+      product.retire!
+      expect(retire_product_text(product)).to eq("Reactivate this Product")
+
+      product.retire!
+      expect(retire_product_text(product)).to eq("Retire this Product")
+    end
+  end
 end
