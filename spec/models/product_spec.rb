@@ -23,8 +23,8 @@ RSpec.describe Product, type: :model do
       end
 
       it "requires the name to be unique" do
-        product = Product.create(name: "a", price: 1, seller_id: 1, stock: 1)
-        product2 = Product.create(name: "a", price: 1, seller_id: 1, stock: 1)
+        product = Product.create(name: "a", price: 1, seller_id: 1, stock: 1, weight: 5, dimensions: "[4, 5, 6]" )
+        product2 = Product.create(name: "a", price: 1, seller_id: 1, stock: 1, weight: 5, dimensions: "[4, 5, 6]")
 
         expect(product2.errors.keys).to include(:name)
         expect(product2.errors.messages[:name]).to include "has already been taken"
@@ -53,6 +53,31 @@ RSpec.describe Product, type: :model do
         expect(product).to_not be_valid
         expect(product.errors.keys).to include(:price)
         expect(product.errors.messages[:price]).to include "must be greater than 0"
+      end
+    end
+
+    describe "weight validations" do
+      it "requires a weight" do
+        product = Product.new
+
+        expect(product).to_not be_valid
+        expect(product.errors.keys).to include(:weight)
+      end
+
+      it "requires weight to be a number" do
+        product = Product.new(weight: "a")
+
+        expect(product).to_not be_valid
+        expect(product.errors.keys).to include(:weight)
+        expect(product.errors.messages[:weight]).to include "is not a number"
+      end
+
+      it "requires weight to be greater than 0" do
+        product = Product.new(weight: 0)
+
+        expect(product).to_not be_valid
+        expect(product.errors.keys).to include(:weight)
+        expect(product.errors.messages[:weight]).to include "must be greater than 0"
       end
     end
 
@@ -93,16 +118,16 @@ RSpec.describe Product, type: :model do
   describe "scopes" do
     context "has_stock" do
       it "returns only those products with available stock" do
-        product1 = Product.create(name: 'afsbfdsf', price: 1, seller_id: 1, stock: 1)
-        product2 = Product.create(name: 'asdfbsdfba', price: 1, seller_id: 1, stock: 0)
+        product1 = Product.create(name: 'afsbfdsf', price: 1, seller_id: 1, stock: 1, weight: 5, dimensions: "[4, 5, 6]")
+        product2 = Product.create(name: 'asdfbsdfba', price: 1, seller_id: 1, stock: 0, weight: 5, dimensions: "[4, 5, 6]")
 
         expect(Product.has_stock).to include(product1)
         expect(Product.has_stock).not_to include(product2)
       end
 
       it "returns only unretired products" do
-        product1 = Product.create(name: 'afsbfdsf', price: 1, seller_id: 1, stock: 10)
-        product2 = Product.create(name: 'asdfbsdfba', price: 1, seller_id: 1, stock: 10, retired: true)
+        product1 = Product.create(name: 'afsbfdsf', price: 1, seller_id: 1, stock: 10, weight: 5, dimensions: "[4, 5, 6]" )
+        product2 = Product.create(name: 'asdfbsdfba', price: 1, seller_id: 1, stock: 10, retired: true, weight: 5, dimensions: "[4, 5, 6]" )
 
         expect(Product.has_stock).to include(product1)
         expect(Product.has_stock).not_to include(product2)
@@ -112,7 +137,7 @@ RSpec.describe Product, type: :model do
 
   describe "#average_rating" do
     it "returns an average rating for a product" do
-      product = Product.create(name: 'a', price: 1, seller_id: 1, stock: 1)
+      product = Product.create(name: 'a', price: 1, seller_id: 1, stock: 1, weight: 5, dimensions: "[4, 5, 6]" )
       review = Review.create(rating: 1, product_id: 1)
       review2 = Review.create(rating: 3, product_id: 1)
 
@@ -120,7 +145,7 @@ RSpec.describe Product, type: :model do
     end
 
     it "returns 0 if no ratings" do
-      product = Product.create(name: 'a', price: 1, seller_id: 1, stock: 1)
+      product = Product.create(name: 'a', price: 1, seller_id: 1, stock: 1, weight: 5, dimensions: "[4, 5, 6]" )
 
       expect(product.average_rating).to eq 0
     end
@@ -128,31 +153,31 @@ RSpec.describe Product, type: :model do
 
   describe "#stock?" do
     it "returns true if stock is present" do
-      product = Product.create(stock: 1, price: 1, seller_id: 1, name: "z4$asdf")
+      product = Product.create(stock: 1, price: 1, seller_id: 1, name: "z4$asdf", weight: 5, dimensions: "[4, 5, 6]" )
       expect(product.stock?).to eq(true)
     end
 
     it "returns false if no stock is present" do
-      product = Product.create(stock: 0, price: 1, seller_id: 1, name: "z4$asdf")
+      product = Product.create(stock: 0, price: 1, seller_id: 1, name: "z4$asdf", weight: 5, dimensions: "[4, 5, 6]" )
       expect(product.stock?).to eq(false)
     end
   end
 
   describe "#retire!" do
     it "changes value of retired from true to false" do
-      product = Product.create(stock: 1, price: 1, seller_id: 1, name: "z4ssdfg$%fds", retired: true)
+      product = Product.create(stock: 1, price: 1, seller_id: 1, name: "z4ssdfg$%fds", retired: true, weight: 5, dimensions: "[4, 5, 6]" )
       product.retire!
       expect(product.retired).to eq(false)
     end
 
     it "also changes value of retired from false to true" do
-      product = Product.create(stock: 1, price: 1, seller_id: 1, name: "z4$%fdsasdf", retired: false)
+      product = Product.create(stock: 1, price: 1, seller_id: 1, name: "z4$%fdsasdf", retired: false, weight: 5, dimensions: "[4, 5, 6]" )
       product.retire!
       expect(product.retired).to eq(true)
     end
 
     it "basically swaps between true and false, ok?" do
-      product = Product.create(stock: 1, price: 1, seller_id: 1, name: "z4$%fasdfasdfds", retired: false)
+      product = Product.create(stock: 1, price: 1, seller_id: 1, name: "z4$%fasdfasdfds", retired: false, weight: 5, dimensions: "[4, 5, 6]" )
       10.times do |count|
         product.retire!
         result = count.even? ? true : false
@@ -165,7 +190,7 @@ RSpec.describe Product, type: :model do
   describe "adding & removing product stock" do
     context "#add_stock!" do
       before :each do
-        @product = Product.create(stock: 1, price: 1, seller_id: 1, name: "z4$")
+        @product = Product.create(stock: 1, price: 1, seller_id: 1, name: "z4$", weight: 5, dimensions: "[4, 5, 6]" )
       end
 
       it "does not update when fed negative or zero amounts" do
@@ -187,7 +212,7 @@ RSpec.describe Product, type: :model do
 
     context "#remove_stock!" do
       before :each do
-        @product = Product.create(stock: 30, price: 1, seller_id: 1, name: "z4$4")
+        @product = Product.create(stock: 30, price: 1, seller_id: 1, name: "z4$4", weight: 5, dimensions: "[4, 5, 6]" )
       end
 
       it "does not update when fed negative or zero amounts" do
@@ -210,19 +235,19 @@ RSpec.describe Product, type: :model do
 
   describe "#top_products" do
     before :each do
-      @product1 = Product.create(name: 'a', price: 1, seller_id: 1, stock: 1)
-      @product2 = Product.create(name: 'b', price: 1, seller_id: 1, stock: 1)
-      @product3 = Product.create(name: 'c', price: 1, seller_id: 1, stock: 1)
-      product4 = Product.create(name: 'd', price: 1, seller_id: 1, stock: 1)
-      product5 = Product.create(name: 'e', price: 1, seller_id: 1, stock: 1)
-      product6 = Product.create(name: 'f', price: 1, seller_id: 1, stock: 1)
-      product7 = Product.create(name: 'g', price: 1, seller_id: 1, stock: 1)
-      product8 = Product.create(name: 'h', price: 1, seller_id: 1, stock: 1)
-      product9 = Product.create(name: 'i', price: 1, seller_id: 1, stock: 1)
-      product10 = Product.create(name: 'j', price: 1, seller_id: 1, stock: 1)
-      product11 = Product.create(name: 'k', price: 1, seller_id: 1, stock: 1)
-      product12 = Product.create(name: 'l', price: 1, seller_id: 1, stock: 1)
-      @worst_rated = Product.create(name: 'm', price: 1, seller_id: 1, stock: 1)
+      @product1 = Product.create(name: 'a', price: 1, seller_id: 1, stock: 1, weight: 5, dimensions: "[4, 5, 6]")
+      @product2 = Product.create(name: 'b', price: 1, seller_id: 1, stock: 1, weight: 5, dimensions: "[4, 5, 6]")
+      @product3 = Product.create(name: 'c', price: 1, seller_id: 1, stock: 1, weight: 5, dimensions: "[4, 5, 6]")
+      product4 = Product.create(name: 'd', price: 1, seller_id: 1, stock: 1, weight: 5, dimensions: "[4, 5, 6]")
+      product5 = Product.create(name: 'e', price: 1, seller_id: 1, stock: 1, weight: 5, dimensions: "[4, 5, 6]")
+      product6 = Product.create(name: 'f', price: 1, seller_id: 1, stock: 1, weight: 5, dimensions: "[4, 5, 6]")
+      product7 = Product.create(name: 'g', price: 1, seller_id: 1, stock: 1, weight: 5, dimensions: "[4, 5, 6]")
+      product8 = Product.create(name: 'h', price: 1, seller_id: 1, stock: 1, weight: 5, dimensions: "[4, 5, 6]")
+      product9 = Product.create(name: 'i', price: 1, seller_id: 1, stock: 1, weight: 5, dimensions: "[4, 5, 6]")
+      product10 = Product.create(name: 'j', price: 1, seller_id: 1, stock: 1, weight: 5, dimensions: "[4, 5, 6]")
+      product11 = Product.create(name: 'k', price: 1, seller_id: 1, stock: 1, weight: 5, dimensions: "[4, 5, 6]")
+      product12 = Product.create(name: 'l', price: 1, seller_id: 1, stock: 1, weight: 5, dimensions: "[4, 5, 6]")
+      @worst_rated = Product.create(name: 'm', price: 1, seller_id: 1, stock: 1, weight: 5, dimensions: "[4, 5, 6]")
 
       review = Review.create(rating: 5, product_id: 1)
       review = Review.create(rating: 5, product_id: 2)
