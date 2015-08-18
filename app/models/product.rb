@@ -5,9 +5,10 @@ class Product < ActiveRecord::Base
   has_many :reviews
 
   validates :name, presence: true, uniqueness: true
-  validates :price, presence: true, numericality: { greater_than: 0 }
+  validates :price, :weight, presence: true, numericality: { greater_than: 0 }
   validates :seller_id, presence: true, numericality: { only_integer: true }
   validates :stock, presence: true, numericality: { only_integer: true }
+  validates :dimensions, presence: true
 
   scope :active, -> { where(retired: false) }
   scope :has_stock, -> { active.where("stock > 0") }
