@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150724121726) do
+ActiveRecord::Schema.define(version: 20150818221621) do
 
   create_table "categories", force: :cascade do |t|
     t.string   "name",       null: false
@@ -40,11 +40,15 @@ ActiveRecord::Schema.define(version: 20150724121726) do
     t.string   "status",                default: "pending", null: false
     t.string   "buyer_name"
     t.string   "buyer_email"
-    t.text     "buyer_address"
     t.string   "buyer_card_short"
     t.datetime "buyer_card_expiration"
     t.datetime "created_at",                                null: false
     t.datetime "updated_at",                                null: false
+    t.string   "buyer_street"
+    t.string   "buyer_city"
+    t.string   "buyer_state"
+    t.string   "buyer_country",         default: "US"
+    t.string   "buyer_zip"
   end
 
   create_table "products", force: :cascade do |t|
