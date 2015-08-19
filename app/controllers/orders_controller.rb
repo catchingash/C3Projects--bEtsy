@@ -1,13 +1,25 @@
 class OrdersController < ApplicationController
+  SHIPPING_URI = "http://localhost:3333/quote&"
+  ORIGIN = "Texarkana TX 75505 US"
+  # Create an unless block to change this to rails.env during production
+
   before_action :set_order, only: [:cart, :checkout, :add_to_cart, :update, :receipt]
   before_action :set_seller_order, only: [:show]
   before_action :set_product, only: [:add_to_cart]
   before_action :set_seller, only: [:index, :show]
   before_action :require_seller_login, only: [:index, :show]
+  before_action :active_shipping_call, only: [:shipping]
 
   def cart; end
 
+  def active_shipping_call
+    # hit the URI
+    # @response = HTTParty.get(SHIPPING_URI + "#{ORIGIN}&#{@destination}&#{@packages}")
+  end
+
   def shipping
+    # @ups_option = grab stuff from the hashy mash
+    # @fedex_option
   end
 
   def checkout
