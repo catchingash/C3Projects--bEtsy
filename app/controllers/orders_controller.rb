@@ -1,3 +1,5 @@
+require 'httparty'
+
 class OrdersController < ApplicationController
   SHIPPING_URI = "http://localhost:3333/quote&"
   ORIGIN = "Texarkana TX 75505 US"
