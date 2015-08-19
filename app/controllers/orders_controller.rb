@@ -17,8 +17,10 @@ class OrdersController < ApplicationController
   def active_shipping_call
     get_destination
     get_packages
+    query = { origin: ORIGIN, destination: @destination, packages: @packages }
     # hit the URI
-    @response = HTTParty.get(SHIPPING_URI, origin: ORIGIN, destination: @destination, packages: @packages)
+    @response = HTTParty.get(SHIPPING_URI)
+    # @response = HTTParty.get(SHIPPING_URI, query: query)
     raise
   end
 
