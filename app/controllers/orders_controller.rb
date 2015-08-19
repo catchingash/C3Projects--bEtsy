@@ -1,7 +1,7 @@
 require 'httparty'
 
 class OrdersController < ApplicationController
-  SHIPPING_URI = "http://localhost:3333/quote&"
+  SHIPPING_URI = "http://localhost:3333/quotes?"
   ORIGIN = "Texarkana TX 75505 US"
   # Create an unless block to change this to rails.env during production
 
@@ -10,13 +10,15 @@ class OrdersController < ApplicationController
   before_action :set_product, only: [:add_to_cart]
   before_action :set_seller, only: [:index, :show]
   before_action :require_seller_login, only: [:index, :show]
+  before_action :get_destination, only: [:active_shipping_call]
   before_action :active_shipping_call, only: [:shipping]
 
   def cart; end
 
   def active_shipping_call
+    raise
     # hit the URI
-    # @response = HTTParty.get(SHIPPING_URI + "#{ORIGIN}&#{@destination}&#{@packages}")
+    # @response = HTTParty.get(SHIPPING_URI + "origin=#{ORIGIN}&destination=#{@destination}&packages=#{@packages}")
   end
 
   def shipping
@@ -89,4 +91,19 @@ class OrdersController < ApplicationController
     def set_product
       @product = Product.find(params[:id])
     end
+
+    def get_destination(order)
+      order = @order
+      city = order.buyer_city
+      state = order.buyer_state
+      zip = order.buyer_zip
+      country = order.buyer_country
+      @destination = city + state + zip + country
+    end
+
+    # def get_packages(@order)
+    #
+    #   @packages
+    # end
+
 end
