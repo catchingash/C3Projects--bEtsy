@@ -223,10 +223,10 @@ RSpec.describe OrdersController, type: :controller do
         expect(test_order.buyer_card_expiration).not_to eq(old_card_expiration)
       end
 
-      it "redirects to receipt_path" do
+      it "redirects to shipping_path" do
         patch :update, checkout_buyer_params
 
-        expect(response).to redirect_to(receipt_path)
+        expect(response).to redirect_to(shipping_path)
       end
     end
 
