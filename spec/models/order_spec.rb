@@ -5,10 +5,10 @@ RSpec.describe Order, type: :model do
     before :each do
       @order = Order.create
 
-      product1 = Product.create(name: "asdkhjadsf", seller_id: 1, stock: 1, price: 1)
+      product1 = Product.create(name: "asdkhjadsf", seller_id: 1, stock: 1, price: 1, weight: 5, height: 3, width: 4, length: 5)
       OrderItem.create(order_id: @order.id, product_id: product1.id, quantity_ordered: 1)
 
-      product2 = Product.create(name: "3948jmow3f43ou9kv", seller_id: 1, stock: 1, price: 1)
+      product2 = Product.create(name: "3948jmow3f43ou9kv", seller_id: 1, stock: 1, price: 1, weight: 5, height: 3, width: 4, length: 5)
       OrderItem.create(order_id: @order.id, product_id: product2.id, quantity_ordered: 1)
     end
 
@@ -48,7 +48,7 @@ RSpec.describe Order, type: :model do
       it "does not require any buyer info for pending orders" do
         order = Order.create
 
-        buyer_fields = [:buyer_name, :buyer_email, :buyer_address, :buyer_card_short, :buyer_card_expiration]
+        buyer_fields = [:buyer_name, :buyer_email, :buyer_street, :buyer_city, :buyer_state, :buyer_zip, :buyer_card_short, :buyer_card_expiration]
 
         buyer_fields.each do |field|
           expect(order.errors.keys).to_not include(field)
@@ -90,18 +90,60 @@ RSpec.describe Order, type: :model do
           expect(@order3.errors.keys).to_not include(:buyer_name)
         end
 
-        it "requires buyer address" do
-          expect(@order1.errors.keys).to include(:buyer_address)
-          expect(@order2.errors.keys).to include(:buyer_address)
-          expect(@order3.errors.keys).to include(:buyer_address)
+        it "requires buyer street" do
+          expect(@order1.errors.keys).to include(:buyer_street)
+          expect(@order2.errors.keys).to include(:buyer_street)
+          expect(@order3.errors.keys).to include(:buyer_street)
 
-          @order1 = Order.create(status: "paid", buyer_address: "1234 fake st")
-          @order2 = Order.create(status: "complete", buyer_address: "1234 fake st")
-          @order3 = Order.create(status: "canceled", buyer_address: "1234 fake st")
+          @order1 = Order.create(status: "paid", buyer_street: "1234 fake st")
+          @order2 = Order.create(status: "complete", buyer_street: "1234 fake st")
+          @order3 = Order.create(status: "canceled", buyer_street: "1234 fake st")
 
-          expect(@order1.errors.keys).to_not include(:buyer_address)
-          expect(@order2.errors.keys).to_not include(:buyer_address)
-          expect(@order3.errors.keys).to_not include(:buyer_address)
+          expect(@order1.errors.keys).to_not include(:buyer_street)
+          expect(@order2.errors.keys).to_not include(:buyer_street)
+          expect(@order3.errors.keys).to_not include(:buyer_street)
+        end
+
+        it "requires buyer city" do
+          expect(@order1.errors.keys).to include(:buyer_city)
+          expect(@order2.errors.keys).to include(:buyer_city)
+          expect(@order3.errors.keys).to include(:buyer_city)
+
+          @order1 = Order.create(status: "paid", buyer_city: "fake city")
+          @order2 = Order.create(status: "complete", buyer_city: "fake city")
+          @order3 = Order.create(status: "canceled", buyer_city: "fake city")
+
+          expect(@order1.errors.keys).to_not include(:buyer_city)
+          expect(@order2.errors.keys).to_not include(:buyer_city)
+          expect(@order3.errors.keys).to_not include(:buyer_city)
+        end
+
+        it "requires buyer state" do
+          expect(@order1.errors.keys).to include(:buyer_city)
+          expect(@order2.errors.keys).to include(:buyer_city)
+          expect(@order3.errors.keys).to include(:buyer_city)
+
+          @order1 = Order.create(status: "paid", buyer_city: "NY")
+          @order2 = Order.create(status: "complete", buyer_city: "NY")
+          @order3 = Order.create(status: "canceled", buyer_city: "NY")
+
+          expect(@order1.errors.keys).to_not include(:buyer_city)
+          expect(@order2.errors.keys).to_not include(:buyer_city)
+          expect(@order3.errors.keys).to_not include(:buyer_city)
+        end
+
+        it "requires buyer zip" do
+          expect(@order1.errors.keys).to include(:buyer_zip)
+          expect(@order2.errors.keys).to include(:buyer_zip)
+          expect(@order3.errors.keys).to include(:buyer_zip)
+
+          @order1 = Order.create(status: "paid", buyer_zip: "98115")
+          @order2 = Order.create(status: "complete", buyer_zip: "98115")
+          @order3 = Order.create(status: "canceled", buyer_zip: "98115")
+
+          expect(@order1.errors.keys).to_not include(:buyer_zip)
+          expect(@order2.errors.keys).to_not include(:buyer_zip)
+          expect(@order3.errors.keys).to_not include(:buyer_zip)
         end
 
         it "requires buyer card short" do
@@ -212,8 +254,8 @@ RSpec.describe Order, type: :model do
         @seller.password = @seller.password_confirmation = "password"
         @seller.save
 
-        @product = Product.create(name: "astronaut", price: 4_000, seller_id: 1, stock: 5)
-        @product2 = Product.create(name: "dsafkhlaer", price: 125, seller_id: 2, stock: 25)
+        @product = Product.create(name: "astronaut", price: 4_000, seller_id: 1, stock: 5, weight: 5, height: 3, width: 4, length: 5)
+        @product2 = Product.create(name: "dsafkhlaer", price: 125, seller_id: 2, stock: 25, weight: 5, height: 3, width: 4, length: 5)
         @order = Order.create
         @item = OrderItem.create(product_id: @product.id, order_id: @order.id, quantity_ordered: 2)
       end
@@ -254,8 +296,8 @@ RSpec.describe Order, type: :model do
     context "#prepare_checkout!" do
       before :each do
         @order = Order.create
-        @product1 = Product.create(name: "sheer insanity", stock: 5, price: 1, seller_id: 1)
-        @product2 = Product.create(name: "sheer inanity", stock: 10, price: 1, seller_id: 1)
+        @product1 = Product.create(name: "sheer insanity", stock: 5, price: 1, seller_id: 1, weight: 5, height: 3, width: 4, length: 5)
+        @product2 = Product.create(name: "sheer inanity", stock: 10, price: 1, seller_id: 1, weight: 5, height: 3, width: 4, length: 5)
       end
 
       it "calls #adjust_if_product_stock_changed & reduces the quantity ordered as necessary" do
@@ -288,11 +330,11 @@ RSpec.describe Order, type: :model do
       context "successful update" do
         before :each do
           order = Order.create
-          @product = Product.create(name: "sheer inanity", stock: 10, price: 1, seller_id: 1)
+          @product = Product.create(name: "sheer inanity", stock: 10, price: 1, seller_id: 1, weight: 5, height: 3, width: 4, length: 5)
           @order_item = OrderItem.create(order_id: order.id, product_id: @product.id, quantity_ordered: 5)
 
           checkout_params = { buyer_name: "cthulhu", buyer_email: "cthulhu@rlyeh.net",
-            buyer_address: "1234 fake st", buyer_card_short: "4567",
+            buyer_street: "1234 dread waves", buyer_city: "seattle", buyer_state: "WA", buyer_zip: "98115", buyer_card_short: "4567",
             buyer_card_expiration: Date.parse("June 5 2086") }
 
           order.checkout!(checkout_params)
@@ -312,11 +354,11 @@ RSpec.describe Order, type: :model do
       context "unsuccessful update" do
         it "doesn't reduce product stock" do
           order = Order.create
-          product = Product.create(name: "sheer inanity", stock: 10, price: 1, seller_id: 1)
+          product = Product.create(name: "sheer inanity", stock: 10, price: 1, seller_id: 1, weight: 5, height: 3, width: 4, length: 5)
           OrderItem.create(order_id: order.id, product_id: product.id, quantity_ordered: 5)
 
           checkout_params = { buyer_name: "cthulhu", buyer_email: "cthulhu@rlyeh.net",
-            buyer_address: "1234 fake st", buyer_card_short: "CTHULHU WAS HERE",
+            buyer_street: "1234 dread waves", buyer_city: "seattle", buyer_state: "WA", buyer_zip: "98115", buyer_card_short: "CTHULHU WAS HERE",
             buyer_card_expiration: Date.parse("June 5 2086") }
 
           order.checkout!(checkout_params)
@@ -330,7 +372,7 @@ RSpec.describe Order, type: :model do
     context "#already_has_product?" do
       before :each do
         @order = Order.create
-        @product = Product.create(name: "sheer inanity", stock: 10, price: 1, seller_id: 1)
+        @product = Product.create(name: "sheer inanity", stock: 10, price: 1, seller_id: 1, weight: 5, height: 3, width: 4, length: 5)
       end
 
       it "returns true if a product is in an order" do
