@@ -21,10 +21,10 @@ RSpec.describe CategoriesController, type: :controller do
   }
 
   let(:create_4_products) {
-    Product.create( { name: "books", price: "600", seller_id: "7", stock: "2" } )
-    Product.create( { name: "sunglasses", price: "10000", seller_id: "1", stock: "9" } )
-    Product.create( { name: "coffee", price: "1000", seller_id: "6", stock: "4" } )
-    Product.create( { name: "t-shirts", price: "1300", seller_id: "9", stock: "15" } )
+    Product.create( { name: "books", price: "600", seller_id: "7", stock: "2", weight: 500, length: 10, width: 7, height: 9 } )
+    Product.create( { name: "sunglasses", price: "10000", seller_id: "1", stock: "9", weight: 500, length: 10, width: 7, height: 9 } )
+    Product.create( { name: "coffee", price: "1000", seller_id: "6", stock: "4", weight: 500, length: 10, width: 7, height: 9 } )
+    Product.create( { name: "t-shirts", price: "1300", seller_id: "9", stock: "15", weight: 500, length: 10, width: 7, height: 9 } )
   }
 
   describe "private methods" do
@@ -80,7 +80,7 @@ RSpec.describe CategoriesController, type: :controller do
 
       it "only includes active / not retired products" do
         product = Product.create(name: "blaglagolag", price: 1, seller_id: 1,
-          stock: 1, retired: true)
+          stock: 1, retired: true, weight: 500, length: 10, width: 7, height: 9)
         category.products << product
 
         get :show, { id: category.id }
@@ -124,7 +124,7 @@ RSpec.describe CategoriesController, type: :controller do
           session[:seller_id] = seller.id
           post :create, valid_params
         end
-        
+
         it "creates a category" do
           expect(Category.count).to eq 1
         end
@@ -139,7 +139,7 @@ RSpec.describe CategoriesController, type: :controller do
           session[:seller_id] = seller.id
           post :create, invalid_params
         end
-        
+
         it "does not persist invalid records" do
           expect(Product.count).to eq 0
         end
