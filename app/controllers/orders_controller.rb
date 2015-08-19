@@ -19,8 +19,8 @@ class OrdersController < ApplicationController
     get_packages
     query = { origin: ORIGIN, destination: @destination, packages: @packages }
     # hit the URI
-    @response = HTTParty.get(SHIPPING_URI)
-    # @response = HTTParty.get(SHIPPING_URI, query: query)
+    # @response = HTTParty.get(SHIPPING_URI)
+    @response = HTTParty.get(SHIPPING_URI, query: query)
     raise
   end
 
