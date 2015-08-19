@@ -2,7 +2,10 @@ require 'httparty'
 
 class OrdersController < ApplicationController
   SHIPPING_URI = "http://localhost:3333/quotes"
-  ORIGIN = "Texarkana TX 75505 US"
+  ORIGIN_HASH = {origin_city: "Texarkana",
+                 origin_state: "TX",
+                 origin_zip: "75505",
+                 origin_country: "US"}
   # Create an unless block to change this to rails.env during production
 
   before_action :set_order, only: [:cart, :checkout, :add_to_cart, :update, :receipt]
@@ -17,7 +20,7 @@ class OrdersController < ApplicationController
   def active_shipping_call
     get_destination
     get_packages
-    query = { origin: ORIGIN, destination: @destination, packages: @packages }
+    query = { origin: ORIGIN_HASH, destination: @destination_hash, packages: @packages }
     # hit the URI
     # @response = HTTParty.get(SHIPPING_URI)
     @response = HTTParty.get(SHIPPING_URI, query: query)
@@ -101,11 +104,12 @@ class OrdersController < ApplicationController
         redirect_to cart_path
       else
         order = Order.find(session[:order_id])
-        city = order.buyer_city
-        state = order.buyer_state
-        zip = order.buyer_zip
-        country = order.buyer_country
-        @destination =[city, state, zip, country].join(' ')
+        @destination_hash = {
+          destination_city: order.buyer_city,
+          destination_state: order.buyer_state,
+          destination_zip: order.buyer_zip,
+          destination_country: order.buyer_country
+        }
       end
     end
 
