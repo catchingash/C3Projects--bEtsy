@@ -53,7 +53,7 @@ class OrdersController < ApplicationController
 
   private
     def checkout_params
-      params.require(:order).permit(:buyer_name, :buyer_email, :buyer_address, :buyer_card_short, :buyer_card_expiration)
+      params.require(:order).permit(:buyer_name, :buyer_email, :buyer_street, :buyer_city, :buyer_state, :buyer_zip, :buyer_country, :buyer_card_short, :buyer_card_expiration)
     end
 
     def set_order
