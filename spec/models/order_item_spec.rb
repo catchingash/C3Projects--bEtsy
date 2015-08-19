@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe OrderItem, type: :model do
   before :each do
     @seller = Seller.create(username: "a", email: "bob@bob.bob", password: "password", password_confirmation: "password")
-    @product = Product.create(name: "a", price: 1, seller_id: 1, stock: 5)
+    @product = Product.create(name: "a", price: 1, seller_id: 1, stock: 5, weight: 5, height: 3, width: 4, length: 5)
     @order = Order.create
     @order_item = OrderItem.create(product_id: @product.id, order_id: @order.id, quantity_ordered: 1)
   end
@@ -66,7 +66,7 @@ RSpec.describe OrderItem, type: :model do
 
       it "is not valid if there is no available product stock" do
         current_stock = 5
-        product = Product.create(name: "abbadabbadoo", price: 1, seller_id: 1, stock: current_stock)
+        product = Product.create(name: "abbadabbadoo", price: 1, seller_id: 1, stock: current_stock, weight: 5, height: 3, width: 4, length: 5)
         order1 = Order.create
         order2 = Order.create
 
@@ -81,7 +81,7 @@ RSpec.describe OrderItem, type: :model do
 
       it "is not valid if product is already part of order" do
         order = Order.create
-        product = Product.create(name: "blabbasdk4t3ny9", stock: 50, price: 1, seller_id: 1)
+        product = Product.create(name: "blabbasdk4t3ny9", stock: 50, price: 1, seller_id: 1, weight: 5, height: 3, width: 4, length: 5)
 
         valid_item = OrderItem.new(order_id: order.id, product_id: product.id, quantity_ordered: 1)
         expect(valid_item).to be_valid
@@ -206,7 +206,7 @@ RSpec.describe OrderItem, type: :model do
 
     context "#order_item_is_unique? (calls private method from validation)" do
       it "adds errors to OrderItem if it's already in the Order" do
-        product = Product.create(name: 'a34m89yv39ampy', price: 1, seller_id: 1, stock: 100)
+        product = Product.create(name: 'a34m89yv39ampy', price: 1, seller_id: 1, stock: 100, weight: 5, height: 3, width: 4, length: 5)
         order = Order.create
         OrderItem.create(product_id: product.id, order_id: order.id, quantity_ordered: 1)
         order_item = OrderItem.create(product_id: product.id, order_id: order.id, quantity_ordered: 2)
@@ -220,7 +220,7 @@ RSpec.describe OrderItem, type: :model do
   describe "methods" do
     before :each do
       @order = Order.create
-      @product = Product.create(name: "astronaut", price: 4_000, seller_id: 1, stock: 5)
+      @product = Product.create(name: "astronaut", price: 4_000, seller_id: 1, stock: 5, weight: 5, height: 3, width: 4, length: 5)
     end
 
     context "#more!" do
@@ -269,7 +269,7 @@ RSpec.describe OrderItem, type: :model do
 
     context "#adjust_if_product_stock_changed!" do
       it "reduces the quantity ordered if product has less stock" do
-        product = Product.create(name: 'asdafun94ymc34', price: 1, seller_id: 1, stock: 1)
+        product = Product.create(name: 'asdafun94ymc34', price: 1, seller_id: 1, stock: 1, weight: 5, height: 3, width: 4, length: 5)
         order = Order.create
         item = OrderItem.create(product_id: product.id, order_id: order.id, quantity_ordered: 10)
         item.adjust_if_product_stock_changed!
@@ -279,7 +279,7 @@ RSpec.describe OrderItem, type: :model do
       end
 
       it "doesn't reduce the quantity if product has enough stock" do
-        product = Product.create(name: 'a34m89yv39ampy', price: 1, seller_id: 1, stock: 100)
+        product = Product.create(name: 'a34m89yv39ampy', price: 1, seller_id: 1, stock: 100, weight: 5, height: 3, width: 4, length: 5)
         order = Order.create
         item = OrderItem.create(product_id: product.id, order_id: order.id, quantity_ordered: 10)
         item.adjust_if_product_stock_changed!
@@ -291,7 +291,7 @@ RSpec.describe OrderItem, type: :model do
 
     context "#remove_product_stock!" do
       it "reduces the product's stock by the item's quantity_ordered" do
-        product = Product.create(name: 'a34m89yv39am765rfvg', price: 1, seller_id: 1, stock: 100)
+        product = Product.create(name: 'a34m89yv39am765rfvg', price: 1, seller_id: 1, stock: 100, weight: 5, height: 3, width: 4, length: 5)
         order = Order.create
         item = OrderItem.create(product_id: product.id, order_id: order.id, quantity_ordered: 10)
         item.remove_product_stock!
@@ -303,7 +303,7 @@ RSpec.describe OrderItem, type: :model do
 
     context "#marked_shipped" do
       it "updates an order item's status to 'shipped'" do
-        product = Product.create(name: 'a34m89yv39ampy', price: 1, seller_id: 1, stock: 100)
+        product = Product.create(name: 'a34m89yv39ampy', price: 1, seller_id: 1, stock: 100, weight: 5, height: 3, width: 4, length: 5)
         order = Order.create
         order_item = OrderItem.create(product_id: product.id, order_id: order.id, quantity_ordered: 1)
         order_item.mark_shipped
@@ -314,7 +314,7 @@ RSpec.describe OrderItem, type: :model do
 
     context "#marked_canceled" do
       it "updates an order item's status to 'canceled'" do
-        product = Product.create(name: 'a34m89yv39ampy', price: 1, seller_id: 1, stock: 100)
+        product = Product.create(name: 'a34m89yv39ampy', price: 1, seller_id: 1, stock: 100, weight: 5, height: 3, width: 4, length: 5)
         order = Order.create
         order_item = OrderItem.create(product_id: product.id, order_id: order.id, quantity_ordered: 1)
         order_item.mark_canceled
@@ -325,7 +325,7 @@ RSpec.describe OrderItem, type: :model do
 
     context "#product_has_stock?" do
       it "returns true if product.stock is a positive number" do
-        product = Product.create(name: 'a34m89yv39ampy', price: 1, seller_id: 1, stock: 100)
+        product = Product.create(name: 'a34m89yv39ampy', price: 1, seller_id: 1, stock: 100, weight: 5, height: 3, width: 4, length: 5)
         order = Order.create
         item = OrderItem.create(product_id: product.id, order_id: order.id, quantity_ordered: 1)
 
@@ -333,7 +333,7 @@ RSpec.describe OrderItem, type: :model do
       end
 
       it "returns false if product.stock is not a positive number" do
-        product = Product.create(name: 'a34m89yv39ampy', price: 1, seller_id: 1, stock: 0)
+        product = Product.create(name: 'a34m89yv39ampy', price: 1, seller_id: 1, stock: 0, weight: 5, height: 3, width: 4, length: 5)
         order = Order.create
         item = OrderItem.create(product_id: product.id, order_id: order.id, quantity_ordered: 1)
 
@@ -344,7 +344,7 @@ RSpec.describe OrderItem, type: :model do
     context "#quantity_too_high?" do
         # quantity_ordered >= product.stock
       it "returns true if quantity_ordered is greater than or equal to product stock" do
-        product = Product.create(name: 'a34m89yv39ampy', price: 1, seller_id: 1, stock: 0)
+        product = Product.create(name: 'a34m89yv39ampy', price: 1, seller_id: 1, stock: 0, weight: 5, height: 3, width: 4, length: 5)
         order = Order.create
         item = OrderItem.create(product_id: product.id, order_id: order.id, quantity_ordered: 10)
 
@@ -352,7 +352,7 @@ RSpec.describe OrderItem, type: :model do
       end
 
       it "returns false if quantity_ordered is less than product stock" do
-        product = Product.create(name: 'a34m89yv39ampy', price: 1, seller_id: 1, stock: 12)
+        product = Product.create(name: 'a34m89yv39ampy', price: 1, seller_id: 1, stock: 12, weight: 5, height: 3, width: 4, length: 5)
         order = Order.create
         item = OrderItem.create(product_id: product.id, order_id: order.id, quantity_ordered: 10)
 

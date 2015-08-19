@@ -7,10 +7,10 @@ RSpec.describe Seller, type: :model do
       @seller.password = @seller.password_confirmation = "bobspassword"
       @seller.save
 
-      Product.create(name: "a", price: 1, stock: 10, seller_id: @seller.id)
-      Product.create(name: "b", price: 1, stock: 10, seller_id: @seller.id)
-      Product.create(name: "c", price: 1, stock: 10, seller_id: @seller.id)
-      Product.create(name: "d", price: 1, stock: 10, seller_id: @seller.id)
+      Product.create(name: "a", price: 1, stock: 10, seller_id: @seller.id, weight: 5, height: 3, width: 4, length: 5)
+      Product.create(name: "b", price: 1, stock: 10, seller_id: @seller.id, weight: 5, height: 3, width: 4, length: 5)
+      Product.create(name: "c", price: 1, stock: 10, seller_id: @seller.id, weight: 5, height: 3, width: 4, length: 5)
+      Product.create(name: "d", price: 1, stock: 10, seller_id: @seller.id, weight: 5, height: 3, width: 4, length: 5)
 
       @order1 = Order.create
       @order2 = Order.create
@@ -75,10 +75,10 @@ RSpec.describe Seller, type: :model do
       @seller.password = @seller.password_confirmation = "bobspassword"
       @seller.save
 
-      Product.create(name: "a", price: 1, stock: 10, seller_id: @seller.id)
-      Product.create(name: "b", price: 1, stock: 10, seller_id: @seller.id)
-      Product.create(name: "c", price: 1, stock: 10, seller_id: @seller.id)
-      Product.create(name: "d", price: 1, stock: 10, seller_id: @seller.id)
+      Product.create(name: "a", price: 1, stock: 10, seller_id: @seller.id, weight: 5, height: 3, width: 4, length: 5)
+      Product.create(name: "b", price: 1, stock: 10, seller_id: @seller.id, weight: 5, height: 3, width: 4, length: 5)
+      Product.create(name: "c", price: 1, stock: 10, seller_id: @seller.id, weight: 5, height: 3, width: 4, length: 5)
+      Product.create(name: "d", price: 1, stock: 10, seller_id: @seller.id, weight: 5, height: 3, width: 4, length: 5)
 
       @order1 = Order.create
       @order2 = Order.create
@@ -93,7 +93,7 @@ RSpec.describe Seller, type: :model do
       OrderItem.create(order_id: @order2.id, product_id: 4, quantity_ordered: 2)
 
       @order2.update(status: "complete", buyer_name: "cthulhu",
-        buyer_email: "cthulhu@rlyeh.net", buyer_address: "1234 fake st",
+        buyer_email: "cthulhu@rlyeh.net", buyer_street: "1234 dread waves", buyer_city: "seattle", buyer_state: "WA", buyer_zip: "98115",
         buyer_card_short: "4567", buyer_card_expiration: Date.parse("June 5 2086"))
       @order2.order_items.each do |item|
         item.update(status: "shipped")
