@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe ReviewsController, type: :controller do
   describe "GET #new" do
     before :each do
-      @product = Product.create(name: 'a', price: 1, seller_id: 1, stock: 1)
+      @product = Product.create(name: 'a', price: 1, seller_id: 1, stock: 1, weight: 100, length: 10, width: 9, height: 8)
     end
 
     it "responds successfully with an HTTP 200 status code" do
@@ -21,7 +21,7 @@ RSpec.describe ReviewsController, type: :controller do
   describe "POST #create" do
     context "valid review params" do
       before :each do
-        @product = Product.create(name: 'a', price: 1, seller_id: 1, stock: 1)
+        @product = Product.create(name: 'a', price: 1, seller_id: 1, stock: 1, weight: 100, length: 10, width: 9, height: 8)
       end
 
       let(:review_params) do
@@ -46,7 +46,7 @@ RSpec.describe ReviewsController, type: :controller do
 
     context "invalid review params" do
       before :each do
-        @product = Product.create(name: 'a', price: 1, seller_id: 1, stock: 1)
+        @product = Product.create(name: 'a', price: 1, seller_id: 1, stock: 1, weight: 100, length: 10, width: 9, height: 8)
       end
 
       let(:review_params) do
