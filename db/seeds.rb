@@ -23,6 +23,14 @@ def rando_price
   return (rand * 25_000).to_i
 end
 
+def rando_weight
+  rand(100..10000)
+end
+
+def rando_dimension
+  rand(2..100)
+end
+
 lorem_ipsum_description = <<END
 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus id ex massa.
 Nam ornare sagittis efficitur. Aenean leo lectus, bibendum quis eleifend ut,
@@ -45,246 +53,246 @@ END
 products = [
   { name: "Puppy", price: 300, seller_id: 2, stock: 3,
     photo_url: "http://upload.wikimedia.org/wikipedia/commons/9/9c/Tibetan_Terrier_Puppy.jpg",
-    description: lorem_ipsum_description },
+    description: lorem_ipsum_description, weight: rando_weight, length: rando_dimension, height: rando_dimension, width: rando_dimension},
   { name: "Hat", price: 2000, seller_id: 4, stock: 7,
     photo_url: "https://c1.staticflickr.com/3/2778/4364279708_c5eee8c341.jpg",
-    description: lorem_ipsum_description },
+    description: lorem_ipsum_description, weight: rando_weight, length: rando_dimension, height: rando_dimension, width: rando_dimension},
   { name: "Shoes", price: 3400, seller_id: 2, stock: 10,
     photo_url: "https://c2.staticflickr.com/6/5538/9642545922_0755b4efaf.jpg",
-    description: lorem_ipsum_description },
+    description: lorem_ipsum_description, weight: rando_weight, length: rando_dimension, height: rando_dimension, width: rando_dimension},
   { name: "Book", price: 600, seller_id: 7, stock: 2,
     photo_url: "https://c1.staticflickr.com/9/8339/8201700717_0209fcac39_b.jpg",
-    description: lorem_ipsum_description },
+    description: lorem_ipsum_description, weight: rando_weight, length: rando_dimension, height: rando_dimension, width: rando_dimension},
   { name: "Sunglasses", price: 10000, seller_id: 1, stock: 9,
     photo_url: "https://farm4.staticflickr.com/3429/5758809338_c8d524870d_o_d.jpg",
-    description: lorem_ipsum_description },
+    description: lorem_ipsum_description, weight: rando_weight, length: rando_dimension, height: rando_dimension, width: rando_dimension},
   { name: "Coffee", price: 1000, seller_id: 6, stock: 4,
     photo_url: "http://www.texample.net/media/tikz/examples/PNG/coffee-cup.png",
-    description: lorem_ipsum_description },
+    description: lorem_ipsum_description, weight: rando_weight, length: rando_dimension, height: rando_dimension, width: rando_dimension},
   { name: "T-shirt", price: 1300, seller_id: 9, stock: 15,
     photo_url: "https://upload.wikimedia.org/wikipedia/commons/2/24/Blue_Tshirt.jpg",
-    description: lorem_ipsum_description },
+    description: lorem_ipsum_description, weight: rando_weight, length: rando_dimension, height: rando_dimension, width: rando_dimension},
   { name: "Ring", price: 4000, seller_id: 8, stock: 34,
     photo_url: "https://farm8.staticflickr.com/7242/7162009815_0e0f462ba8_o_d.jpg",
-    description: lorem_ipsum_description },
+    description: lorem_ipsum_description, weight: rando_weight, length: rando_dimension, height: rando_dimension, width: rando_dimension},
   { name: "Watch", price: 1600, seller_id: 3, stock: 7,
     photo_url: "https://farm4.staticflickr.com/3251/3008469318_2b4844975f_o_d.gif",
-    description: lorem_ipsum_description },
+    description: lorem_ipsum_description, weight: rando_weight, length: rando_dimension, height: rando_dimension, width: rando_dimension},
   { name: "Markers", price: 25, seller_id: 10, stock: 13,
     photo_url: "https://farm3.staticflickr.com/2749/4355765412_d1bf39be7f_o_d.jpg",
-    description: lorem_ipsum_description },
+    description: lorem_ipsum_description, weight: rando_weight, length: rando_dimension, height: rando_dimension, width: rando_dimension},
   { name: "Sunscreen", price: 400, seller_id: 5, stock: 45,
     photo_url: "https://farm8.staticflickr.com/7135/7504697726_cc4c931dc7_o.jpg",
-    description: lorem_ipsum_description },
+    description: lorem_ipsum_description, weight: rando_weight, length: rando_dimension, height: rando_dimension, width: rando_dimension},
   {
     name: "Glass Display Case", price: rando_price, seller_id: rando_seller_id, stock: rando_price/100,
     photo_url: "https://c1.staticflickr.com/9/8810/16913195458_ea0f01f4bc_n.jpg",
-    description: "Great glass display case suitable for showing off a bunch of junk you want to display!"
+    description: "Great glass display case suitable for showing off a bunch of junk you want to display!", weight: rando_weight, length: rando_dimension, height: rando_dimension, width: rando_dimension
   },
   {
     name: "Extremely Large Flower", price: rando_price, seller_id: rando_seller_id, stock: rando_price/100,
     photo_url: "https://c1.staticflickr.com/9/8792/17358849611_12a343100f_n.jpg",
-    description: "Suitable for use as an art piece. Recommended serving: with a side of baby carriage."
+    description: "Suitable for use as an art piece. Recommended serving: with a side of baby carriage.", weight: rando_weight, length: rando_dimension, height: rando_dimension, width: rando_dimension
   },
   {
     name: "Sketchbook", price: rando_price, seller_id: rando_seller_id, stock: rando_price/100,
     photo_url: "https://c2.staticflickr.com/8/7691/17183018995_8077d2ff0a_n.jpg",
-    description: "Good for watercolor and pen. " + lorem_ipsum_description
+    description: "Good for watercolor and pen. " + lorem_ipsum_description, weight: rando_weight, length: rando_dimension, height: rando_dimension, width: rando_dimension
   },
   {
     name: "A Breath Of Fresh Air", price: rando_price, seller_id: rando_seller_id, stock: rando_price/100,
     photo_url: "https://c2.staticflickr.com/8/7415/9409479133_76c94e3c17_n.jpg",
-    description: "Product may come in a tank. Product not guaranteed to be fresh. Product may not be air."
+    description: "Product may come in a tank. Product not guaranteed to be fresh. Product may not be air.", weight: rando_weight, length: rando_dimension, height: rando_dimension, width: rando_dimension
   },
   {
     name: "Martial Arts Lessons", price: rando_price, seller_id: rando_seller_id, stock: rando_price/100,
     photo_url: "https://c2.staticflickr.com/4/3669/12071636106_1bdfccfe02_n.jpg",
-    description: "Price per class hour per student. :) " + lorem_ipsum_description
+    description: "Price per class hour per student. :) " + lorem_ipsum_description, weight: rando_weight, length: rando_dimension, height: rando_dimension, width: rando_dimension
   },
   {
     name: "Windows 95", price: rando_price, seller_id: rando_seller_id, stock: rando_price/100,
     photo_url: "https://c2.staticflickr.com/4/3713/10625167306_6494b153b5_n.jpg",
-    description: "Trees not included. " + lorem_ipsum_description
+    description: "Trees not included. " + lorem_ipsum_description, weight: rando_weight, length: rando_dimension, height: rando_dimension, width: rando_dimension
   },
   {
     name: "Totally Legit Ferris Wheel!", price: rando_price, seller_id: rando_seller_id, stock: rando_price/100,
     photo_url: "https://c2.staticflickr.com/8/7402/9355599294_3850cc787f_n.jpg",
-    description: "Some assembly and parts required. " + lorem_ipsum_description
+    description: "Some assembly and parts required. " + lorem_ipsum_description, weight: rando_weight, length: rando_dimension, height: rando_dimension, width: rando_dimension
   },
   {
     name: "Spider Masterpiece", price: rando_price, seller_id: rando_seller_id, stock: rando_price/100,
     photo_url: "https://c2.staticflickr.com/4/3765/9876909854_79cae50ef2_n.jpg",
-    description: "Check outside your door, especially during the summer. " + lorem_ipsum_description
+    description: "Check outside your door, especially during the summer. " + lorem_ipsum_description, weight: rando_weight, length: rando_dimension, height: rando_dimension, width: rando_dimension
   },
   {
     name: "Tamarin", price: rando_price, seller_id: rando_seller_id, stock: rando_price/100,
     photo_url: "https://c2.staticflickr.com/8/7430/9347930402_c9d6942cb4_n.jpg",
-    description: "What more do we need to say? This is a great deal! " + lorem_ipsum_description
+    description: "What more do we need to say? This is a great deal! " + lorem_ipsum_description, weight: rando_weight, length: rando_dimension, height: rando_dimension, width: rando_dimension
   },
   {
     name: "Classic Rolling Umbrella Gun", price: rando_price, seller_id: rando_seller_id, stock: rando_price/100,
     photo_url: "https://c1.staticflickr.com/1/533/19373446499_13dc23b655_n.jpg",
-    description: "Vintage! " + lorem_ipsum_description
+    description: "Vintage! " + lorem_ipsum_description, weight: rando_weight, length: rando_dimension, height: rando_dimension, width: rando_dimension
   },
   {
     name: "Lifelike Butterfly Model", price: rando_price, seller_id: rando_seller_id, stock: rando_price/100,
     photo_url: "https://c2.staticflickr.com/8/7487/15843003128_ceeb32c53c_n.jpg",
-    description: "Passion Butterfly. " + lorem_ipsum_description
+    description: "Passion Butterfly. " + lorem_ipsum_description, weight: rando_weight, length: rando_dimension, height: rando_dimension, width: rando_dimension
   },
   {
     name: "Devastating Optical Illusion", price: rando_price, seller_id: rando_seller_id, stock: rando_price/100,
     photo_url: "https://c2.staticflickr.com/8/7754/17248418448_2c40ac8f11_n.jpg",
-    description: "Don't stare at it too long. " + lorem_ipsum_description
+    description: "Don't stare at it too long. " + lorem_ipsum_description, weight: rando_weight, length: rando_dimension, height: rando_dimension, width: rando_dimension
   },
   {
     name: "The Bluest Flower", price: rando_price, seller_id: rando_seller_id, stock: rando_price/100,
     photo_url: "https://c2.staticflickr.com/8/7513/15040739534_1dbb27f28b_n.jpg",
-    description: "Italian Alkanet Anchusa azurea. Produces edible, brilliant-blue flowers from spring to fall."
+    description: "Italian Alkanet Anchusa azurea. Produces edible, brilliant-blue flowers from spring to fall.", weight: rando_weight, length: rando_dimension, height: rando_dimension, width: rando_dimension
   },
   {
     name: "Stickphast's Office Paste", price: rando_price, seller_id: rando_seller_id, stock: rando_price/100,
     photo_url: "https://c2.staticflickr.com/6/5542/11307158676_46fbc8549d_n.jpg",
-    description: "Image taken from page 284 of 'Monsieur At Home. (From notes made ... in France.)'"
+    description: "Image taken from page 284 of 'Monsieur At Home. (From notes made ... in France.)'", weight: rando_weight, length: rando_dimension, height: rando_dimension, width: rando_dimension
   },
   {
     name: "Carrots", price: rando_price, seller_id: rando_seller_id, stock: rando_price/100,
     photo_url: "https://c1.staticflickr.com/9/8580/16793854021_2fbe4322e9_n.jpg",
-    description: "Great source of Vitamin A! Good for night vision. " + lorem_ipsum_description
+    description: "Great source of Vitamin A! Good for night vision. " + lorem_ipsum_description, weight: rando_weight, length: rando_dimension, height: rando_dimension, width: rando_dimension
   },
   {
     name: "Another Spider Masterpiece", price: rando_price, seller_id: rando_seller_id, stock: rando_price/100,
     photo_url: "https://c2.staticflickr.com/8/7348/11139073614_cb39e5fed1_n.jpg",
-    description: "From a very large spider who occasionally eats human young -- but only the winged ones."
+    description: "From a very large spider who occasionally eats human young -- but only the winged ones.", weight: rando_weight, length: rando_dimension, height: rando_dimension, width: rando_dimension
   },
   {
     name: "Bicycle", price: rando_price, seller_id: rando_seller_id, stock: rando_price/100,
     photo_url: "https://c1.staticflickr.com/3/2826/11300055394_516668bf5b_n.jpg",
-    description: "Stick out your tongue at pedestrians as you zoom by. " + lorem_ipsum_description
+    description: "Stick out your tongue at pedestrians as you zoom by. " + lorem_ipsum_description, weight: rando_weight, length: rando_dimension, height: rando_dimension, width: rando_dimension
   },
   {
     name: "Lego Convict", price: rando_price, seller_id: rando_seller_id, stock: rando_price/100,
     photo_url: "https://c1.staticflickr.com/5/4124/5171519883_e3d15416a9_n.jpg",
-    description: "Comes with two extra faces & a Lego Jail Cell kit. " + lorem_ipsum_description
+    description: "Comes with two extra faces & a Lego Jail Cell kit. " + lorem_ipsum_description, weight: rando_weight, length: rando_dimension, height: rando_dimension, width: rando_dimension
   },
   {
     name: "Better Bicycle", price: rando_price, seller_id: rando_seller_id, stock: rando_price/100,
     photo_url: "https://c1.staticflickr.com/3/2867/10761009376_4c06c3b3e3_n.jpg",
-    description: "Seats two. " + lorem_ipsum_description
+    description: "Seats two. " + lorem_ipsum_description, weight: rando_weight, length: rando_dimension, height: rando_dimension, width: rando_dimension
   },
   {
     name: "Deluxe Beach Chair", price: rando_price, seller_id: rando_seller_id, stock: rando_price/100,
     photo_url: "https://c1.staticflickr.com/1/324/19172562542_dbbbd367ee_n.jpg",
-    description: "No assembly required. Ships whole. " + lorem_ipsum_description
+    description: "No assembly required. Ships whole. " + lorem_ipsum_description, weight: rando_weight, length: rando_dimension, height: rando_dimension, width: rando_dimension
   },
   {
     name: "Portrait Lessons", price: rando_price, seller_id: rando_seller_id, stock: rando_price/100,
     photo_url: "https://c1.staticflickr.com/1/524/19074818999_c67d25a5ea_n.jpg",
-    description: "Learn how to take portraits of the finest vehicular people around."
+    description: "Learn how to take portraits of the finest vehicular people around.", weight: rando_weight, length: rando_dimension, height: rando_dimension, width: rando_dimension
   },
   {
     name: "Storm's a-Brewing", price: rando_price, seller_id: rando_seller_id, stock: rando_price/100,
     photo_url: "https://c2.staticflickr.com/8/7554/15972027988_f09692c52b_n.jpg",
-    description: "5lb bag of coffee. Picture not related."
+    description: "5lb bag of coffee. Picture not related.", weight: rando_weight, length: rando_dimension, height: rando_dimension, width: rando_dimension
   },
   {
     name: "Fabric", price: rando_price, seller_id: rando_seller_id, stock: rando_price/100,
     photo_url: "https://c2.staticflickr.com/4/3814/10958310435_6a0962eecd_n.jpg",
-    description: "Tell us your favorite color. " + lorem_ipsum_description
+    description: "Tell us your favorite color. " + lorem_ipsum_description, weight: rando_weight, length: rando_dimension, height: rando_dimension, width: rando_dimension
   },
   {
     name: "Tie Dye Dress", price: rando_price, seller_id: rando_seller_id, stock: rando_price/100,
     photo_url: "https://c1.staticflickr.com/3/2856/10515623584_a1a1371b85_n.jpg",
-    description: lorem_ipsum_description
+    description: lorem_ipsum_description, weight: rando_weight, length: rando_dimension, height: rando_dimension, width: rando_dimension
   },
   {
     name: "Theater Chairs", price: rando_price, seller_id: rando_seller_id, stock: rando_price/100,
     photo_url: "https://c1.staticflickr.com/3/2856/10515623584_a1a1371b85_n.jpg",
-    description: "We have a lot. Overstock special pricing! " + lorem_ipsum_description
+    description: "We have a lot. Overstock special pricing! " + lorem_ipsum_description, weight: rando_weight, length: rando_dimension, height: rando_dimension, width: rando_dimension
   },
   {
     name: "Custom Door", price: rando_price, seller_id: rando_seller_id, stock: rando_price/100,
     photo_url: "https://c2.staticflickr.com/8/7558/15984529072_f178f30a07_n.jpg",
-    description: "Normally retails for over $500! " + lorem_ipsum_description
+    description: "Normally retails for over $500! " + lorem_ipsum_description, weight: rando_weight, length: rando_dimension, height: rando_dimension, width: rando_dimension
   },
   {
     name: "Red Paint", price: rando_price, seller_id: rando_seller_id, stock: rando_price/100,
     photo_url: "https://c1.staticflickr.com/9/8646/16063952844_27d7f7bbdc_n.jpg",
-    description: "Good for tables & walls. " + lorem_ipsum_description
+    description: "Good for tables & walls. " + lorem_ipsum_description, weight: rando_weight, length: rando_dimension, height: rando_dimension, width: rando_dimension
   },
   {
     name: "Red Book", price: rando_price, seller_id: rando_seller_id, stock: rando_price/100,
     photo_url: "https://c1.staticflickr.com/9/8645/16246370380_b1bee00207_n.jpg",
-    description: "Good for tables & walls. " + lorem_ipsum_description
+    description: "Good for tables & walls. " + lorem_ipsum_description, weight: rando_weight, length: rando_dimension, height: rando_dimension, width: rando_dimension
   },
   {
     name: "Schrödinger's Cat", price: rando_price, seller_id: rando_seller_id, stock: rando_price/100,
     photo_url: "https://c2.staticflickr.com/8/7531/15986149702_a2e5c9ee8c_n.jpg",
-    description: "We opened the box. " + lorem_ipsum_description
+    description: "We opened the box. " + lorem_ipsum_description, weight: rando_weight, length: rando_dimension, height: rando_dimension, width: rando_dimension
   },
   {
     name: "Cool Shoes", price: rando_price, seller_id: rando_seller_id, stock: rando_price/100,
     photo_url: "https://c1.staticflickr.com/7/6106/6239465912_8fe97b7d4a_n.jpg",
-    description: "I'm at the Pizza Hut. I'm at the Taco Bell. I'm at the Combination Shoes and Sunglasses."
+    description: "I'm at the Pizza Hut. I'm at the Taco Bell. I'm at the Combination Shoes and Sunglasses.", weight: rando_weight, length: rando_dimension, height: rando_dimension, width: rando_dimension
   },
   {
     name: "Put a bird on it.", price: rando_price, seller_id: rando_seller_id, stock: rando_price/100,
     photo_url: "https://c2.staticflickr.com/8/7188/6913369027_6377470920_n.jpg",
-    description: "Watch out for the beak. " + lorem_ipsum_description
+    description: "Watch out for the beak. " + lorem_ipsum_description, weight: rando_weight, length: rando_dimension, height: rando_dimension, width: rando_dimension
   },
   {
     name: "Protractor", price: rando_price, seller_id: rando_seller_id, stock: rando_price/100,
     photo_url: "https://c1.staticflickr.com/7/6051/6235417834_4c42ef739c_n.jpg",
-    description: "Good for measuring triangles like this. " + lorem_ipsum_description
+    description: "Good for measuring triangles like this. " + lorem_ipsum_description, weight: rando_weight, length: rando_dimension, height: rando_dimension, width: rando_dimension
   },
   {
     name: "Graffiti Lessons", price: rando_price, seller_id: rando_seller_id, stock: rando_price/100,
     photo_url: "https://c1.staticflickr.com/7/6119/6222983964_5cf796d1fc_n.jpg",
-    description: "Come this way if you want to live. " + lorem_ipsum_description
+    description: "Come this way if you want to live. " + lorem_ipsum_description, weight: rando_weight, length: rando_dimension, height: rando_dimension, width: rando_dimension
   },
   {
     name: "Apartment Building", price: rando_price, seller_id: rando_seller_id, stock: rando_price/100,
     photo_url: "https://c1.staticflickr.com/1/420/18092271704_a2693009c9_n.jpg",
-    description: "Only one broken window on the north side of the building! " + lorem_ipsum_description
+    description: "Only one broken window on the north side of the building! " + lorem_ipsum_description, weight: rando_weight, length: rando_dimension, height: rando_dimension, width: rando_dimension
   },
   {
     name: "Cement Bricks", price: rando_price, seller_id: rando_seller_id, stock: rando_price/100,
     photo_url: "https://c1.staticflickr.com/1/439/19869955531_350b3bea50_n.jpg",
-    description: "Price per cubic meter."
+    description: "Price per cubic meter.", weight: rando_weight, length: rando_dimension, height: rando_dimension, width: rando_dimension
   },
   {
     name: "Different Blue Shirt", price: rando_price, seller_id: rando_seller_id, stock: rando_price/100,
     photo_url: "https://c2.staticflickr.com/4/3758/11015593463_356fb08414_n.jpg",
-    description: lorem_ipsum_description
+    description: lorem_ipsum_description, weight: rando_weight, length: rando_dimension, height: rando_dimension, width: rando_dimension
   },
   {
     name: "Rapid Onset Destructive Climate Change", price: rando_price, seller_id: rando_seller_id, stock: rando_price/100,
     photo_url: "https://c1.staticflickr.com/9/8716/16799622787_729282630a_n.jpg",
-    description: "Does what it says on the tin. " + lorem_ipsum_description
+    description: "Does what it says on the tin. " + lorem_ipsum_description, weight: rando_weight, length: rando_dimension, height: rando_dimension, width: rando_dimension
   },
   {
     name: "Velodrome Flower Pot Holder", price: rando_price, seller_id: rando_seller_id, stock: rando_price/100,
     photo_url: "https://c1.staticflickr.com/1/378/19085942430_3228ce689a_n.jpg",
-    description: "So relaxing you'll have to take a nap every time you see it."
+    description: "So relaxing you'll have to take a nap every time you see it.", weight: rando_weight, length: rando_dimension, height: rando_dimension, width: rando_dimension
   },
   {
     name: "Duckling", price: rando_price, seller_id: rando_seller_id, stock: rando_price/100,
     photo_url: "https://c2.staticflickr.com/6/5446/8927994868_1434fc6506_n.jpg",
-    description: "So soft. " + lorem_ipsum_description
+    description: "So soft. " + lorem_ipsum_description, weight: rando_weight, length: rando_dimension, height: rando_dimension, width: rando_dimension
   },
   {
     name: "Canon 40mm Lens", price: rando_price, seller_id: rando_seller_id, stock: rando_price/100,
     photo_url: "https://c1.staticflickr.com/9/8892/17319765834_5debfd038c_n.jpg",
-    description: lorem_ipsum_description
+    description: lorem_ipsum_description, weight: rando_weight, length: rando_dimension, height: rando_dimension, width: rando_dimension
   },
   {
     name: "Golden Sphere", price: rando_price, seller_id: rando_seller_id, stock: rando_price/100,
     photo_url: "https://c2.staticflickr.com/6/5470/17578533596_3cc0f5258d_n.jpg",
-    description: "Not the one from the movie. Does not have ability to manifest your subconsious thoughts."
+    description: "Not the one from the movie. Does not have ability to manifest your subconsious thoughts.", weight: rando_weight, length: rando_dimension, height: rando_dimension, width: rando_dimension
   },
   {
     name: "Tattoo", price: rando_price, seller_id: rando_seller_id, stock: rando_price/100,
     photo_url: "https://c1.staticflickr.com/1/290/19051370620_2ab88e4382_n.jpg",
-    description: "Aperture Science? We do what we must because we can. " + lorem_ipsum_description
+    description: "Aperture Science? We do what we must because we can. " + lorem_ipsum_description, weight: rando_weight, length: rando_dimension, height: rando_dimension, width: rando_dimension
   }
 ]
 
@@ -344,7 +352,7 @@ product_limit = Product.count
   current_name = buyer_names.sample
   order = Order.create(status: "paid", buyer_name: current_name,
     buyer_email: current_name.split(" ").sample + "@email.net",
-    buyer_address: "1234 fake st", buyer_card_short: "4567",
+    buyer_street: "1234 fake st", buyer_city: "Texarkana", buyer_state: "TX", buyer_zip: "75505", buyer_card_short: "4567",
     buyer_card_expiration: Date.parse("June 5 2086"))
 
   10.times do
