@@ -7,6 +7,9 @@ class OrdersController < ApplicationController
 
   def cart; end
 
+  def shipping
+  end
+
   def checkout
     @order.prepare_checkout!
     flash[:errors] = @order.errors unless @order.errors.empty?
@@ -25,7 +28,7 @@ class OrdersController < ApplicationController
 
   def update
     if @order.checkout!(checkout_params)
-      redirect_to receipt_path
+      redirect_to shipping_path
     else
       flash.now[:errors] = @order.errors
       @order.attributes = checkout_params
