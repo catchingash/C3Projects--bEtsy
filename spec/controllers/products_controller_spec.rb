@@ -17,10 +17,10 @@ RSpec.describe ProductsController, type: :controller do
 
     it "assigns @products" do
       counter1 = "a"
-      product = Product.create(name: "blaglagolag", price: 1, seller_id: 1, stock: 1)
+      product = Product.create(name: "blaglagolag", price: 1, seller_id: 1, stock: 1, weight: 100, length: 10, width: 9, height: 8)
 
       15.times do
-        Product.create(name: counter1, price: 1, seller_id: 1, stock: 1)
+        Product.create(name: counter1, price: 1, seller_id: 1, stock: 1, weight: 100, length: 10, width: 9, height: 8)
         counter1 = counter1.next
       end
 
@@ -33,10 +33,10 @@ RSpec.describe ProductsController, type: :controller do
     it "doesn't include retired products in @products" do
       counter1 = "a"
       product = Product.create(name: "blaglagolag", price: 1, seller_id: 1,
-        stock: 1, retired: true)
+        stock: 1, retired: true, weight: 100, length: 10, width: 9, height: 8)
 
       15.times do
-        Product.create(name: counter1, price: 1, seller_id: 1, stock: 1)
+        Product.create(name: counter1, price: 1, seller_id: 1, stock: 1, weight: 100, length: 10, width: 9, height: 8)
         counter1 = counter1.next
       end
 
@@ -49,7 +49,7 @@ RSpec.describe ProductsController, type: :controller do
 
   describe "GET #show" do
     before :each do
-      @product = Product.create(name: 'a', price: 1, seller_id: 1, stock: 1)
+      @product = Product.create(name: 'a', price: 1, seller_id: 1, stock: 1, weight: 100, length: 10, width: 9, height: 8)
     end
 
     it "returns successfully with an HTTP 200 status code" do
@@ -75,7 +75,7 @@ RSpec.describe ProductsController, type: :controller do
   describe "GET #edit" do
     before :each do
       @seller = Seller.create(username: "user1", email: "email1@email.com", password_digest: "password1")
-      @product = Product.create(name: 'a', price: 1, seller_id: 1, stock: 1)
+      @product = Product.create(name: 'a', price: 1, seller_id: 1, stock: 1, weight: 100, length: 10, width: 9, height: 8)
       session[:seller_id] = @seller.id
     end
 
@@ -102,7 +102,7 @@ RSpec.describe ProductsController, type: :controller do
     context "valid product params" do
       before :each do
         @seller = Seller.create(username: "user1", email: "email1@email.com", password_digest: "password1")
-        @product = Product.create(name: 'a', price: 1, seller_id: 1, stock: 1)
+        @product = Product.create(name: 'a', price: 1, seller_id: 1, stock: 1, weight: 100, length: 10, width: 9, height: 8)
         @new_params = { :product => { name: 'b' }, id: 1 }
         session[:seller_id] = @seller.id
       end
@@ -129,7 +129,7 @@ RSpec.describe ProductsController, type: :controller do
     context "invalid product params" do
       before :each do
         @seller = Seller.create(username: "user1", email: "email1@email.com", password_digest: "password1")
-        @product = Product.create(name: 'a', price: 1, seller_id: 1, stock: 1)
+        @product = Product.create(name: 'a', price: 1, seller_id: 1, stock: 1, weight: 100, length: 10, width: 9, height: 8)
         @new_params = { :product => { name: '' }, id: 1 }
         session[:seller_id] = @seller.id
       end
@@ -175,7 +175,7 @@ RSpec.describe ProductsController, type: :controller do
     context "valid product params" do
       before :each do
         @seller = Seller.create(username: "user1", email: "email1@email.com", password_digest: "password1")
-        @new_params = { :product => { name: 'a', price: 1, seller_id: 1, stock: 1 }, seller_id: 1 }
+        @new_params = { :product => { name: 'a', price: 1, seller_id: 1, stock: 1, weight: 100, length: 10, width: 9, height: 8 }, seller_id: 1 }
         session[:seller_id] = @seller.id
       end
 
@@ -236,7 +236,7 @@ RSpec.describe ProductsController, type: :controller do
 
   describe "POST #add_categories" do
     before :each do
-      @product = Product.create(name: 'a', price: 1, seller_id: 1, stock: 1)
+      @product = Product.create(name: 'a', price: 1, seller_id: 1, stock: 1, weight: 100, length: 10, width: 9, height: 8)
       @category1 = Category.create(name: "Grocery")
       @category2 = Category.create(name: "Animals")
       @seller = Seller.create(username: "user1", email: "email1@email.com", password_digest: "password1")
@@ -257,7 +257,7 @@ RSpec.describe ProductsController, type: :controller do
   describe "PATCH #retire" do
     before :each do
       @seller = Seller.create(username: "cthulhu", email: "insanity@squiddy-lovecraft.org", password_digest: "ph'nglui-mglw'nafh")
-      @product = Product.create(name: "tenacle beard-glove", stock: 8, seller_id: 1, price: 100)
+      @product = Product.create(name: "tenacle beard-glove", stock: 8, seller_id: 1, price: 100, weight: 100, length: 10, width: 9, height: 8)
       session[:seller_id] = @seller.id
     end
 
@@ -291,7 +291,7 @@ RSpec.describe ProductsController, type: :controller do
         @seller = Seller.create(email: "insanity8@squiddy-lovecraft.org",
           username: "cthulhu", password_digest: "ph'nglui-mglw'nafh")
         @product = Product.create(name: "tentacle socks", seller_id: @seller.id,
-          stock: 1, price: 1)
+          stock: 1, price: 1, weight: 100, length: 10, width: 9, height: 8)
       end
 
       context "#edit" do
@@ -340,7 +340,7 @@ RSpec.describe ProductsController, type: :controller do
 
       context "#show" do
         before :each do
-          @product = Product.create(name: 'a', price: 1, seller_id: 1, stock: 1, retired: true)
+          @product = Product.create(name: 'a', price: 1, seller_id: 1, stock: 1, retired: true, weight: 100, length: 10, width: 9, height: 8)
         end
 
         it "restricts access to #show for retired products" do
