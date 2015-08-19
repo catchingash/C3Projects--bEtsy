@@ -10,8 +10,20 @@
     <%= f.email_field :buyer_email, { class: "form-control", required: true, placeholder: "your_email@example.com" } %>
   </div>
   <div class="form-group">
-    <%= f.label :buyer_address, "Billing Address" %>
-    <%= f.text_field :buyer_address, { class: "form-control", required: true, placeholder: "Street Address, City, State Zipcode" } %>
+    <%= f.label :buyer_street, "Street" %>
+    <%= f.text_field :buyer_street, { class: "form-control", required: true, placeholder: "101 Knockturn Alley" } %>
+  </div>
+  <div class="form-group">
+    <%= f.label :buyer_city, "City" %>
+    <%= f.text_field :buyer_city, { class: "form-control", required: true, placeholder: "London" } %>
+  </div>
+  <div class="form-group">
+    <%= f.label :buyer_state, "State" %>
+    <%= f.text_field :buyer_state, { class: "form-control", required: true, placeholder: "WI" } %>
+  </div>
+  <div class="form-group">
+    <%= f.label :buyer_zip, "Zip Code" %>
+    <%= f.text_field :buyer_zip, { class: "form-control", required: true, placeholder: "98115" } %>
   </div>
   <div class="form-group">
     <%= f.label :buyer_card_short, "Credit Card Number" %>
