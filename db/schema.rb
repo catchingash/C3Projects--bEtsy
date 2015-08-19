@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150818223948) do
+ActiveRecord::Schema.define(version: 20150819165425) do
 
   create_table "categories", force: :cascade do |t|
     t.string   "name",       null: false
@@ -90,5 +90,17 @@ ActiveRecord::Schema.define(version: 20150818223948) do
     t.datetime "created_at",      null: false
     t.datetime "updated_at",      null: false
   end
+
+  create_table "shippings", force: :cascade do |t|
+    t.string   "carrier"
+    t.integer  "price"
+    t.datetime "est_date"
+    t.string   "service_name"
+    t.integer  "order_id"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+  end
+
+  add_index "shippings", ["order_id"], name: "index_shippings_on_order_id"
 
 end
