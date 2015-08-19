@@ -17,7 +17,7 @@ RSpec.describe ApplicationHelper, type: :helper do
     before :each do
       @order = Order.create
       session[:order_id] = @order.id
-      @product = Product.create(name: "Blaster", price: 1, seller_id: 1, stock: 5)
+      @product = Product.create(name: "Blaster", price: 1, seller_id: 1, stock: 5, weight: 100, length: 10, width: 9, height: 8)
     end
 
     it "lovingly crafts the cart display text" do
@@ -28,7 +28,7 @@ RSpec.describe ApplicationHelper, type: :helper do
       OrderItem.create(product_id: @product.id, order_id: @order.id, quantity_ordered: 1)
       expect(cart_display_text).to eq("Cart (1)")
 
-      product = Product.create(name: "Blast From The Past", price: 1, seller_id: 1, stock: 5)
+      product = Product.create(name: "Blast From The Past", price: 1, seller_id: 1, stock: 5, weight: 100, length: 10, width: 9, height: 8)
       OrderItem.create(product_id: product.id, order_id: @order.id, quantity_ordered: 1)
       expect(cart_display_text).to eq("Cart (2)")
     end
@@ -60,7 +60,7 @@ LONG
 
       product = Product.create(
         name: "The Adventures of Run-on Sentence Man", price: 1, seller_id: 1,
-        stock: 1, description: long_version
+        stock: 1, description: long_version, weight: 100, length: 10, width: 9, height: 8
       )
 
       expect(product_short_description(product)).to eq(short_version)
@@ -68,7 +68,7 @@ LONG
 
     it "returns nothing if a product has no description" do
       product = Product.create(name: "The Adventures of Run-on Sentence Man",
-        price: 1, seller_id: 1, stock: 1)
+        price: 1, seller_id: 1, stock: 1, weight: 100, length: 10, width: 9, height: 8)
 
       expect(product_short_description(product)).to eq(nil)
     end
@@ -77,7 +77,7 @@ LONG
       short_version = "Lorem ipsum dolor sit amet, consectetur adipiscing elit."
 
       product = Product.create(name: "The Adventures of Run-on Sentence Man",
-        price: 1, seller_id: 1, stock: 1, description: short_version)
+        price: 1, seller_id: 1, stock: 1, description: short_version, weight: 100, length: 10, width: 9, height: 8)
 
       expect(product_short_description(product)).to eq(short_version)
     end
