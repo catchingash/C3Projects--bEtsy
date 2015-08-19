@@ -31,10 +31,10 @@ RSpec.describe SellersController, type: :controller do
       it "doesn't include retired products in @products" do
         counter1 = "a"
         product = Product.create(name: "blaglagolag", price: 1, seller_id: @seller.id,
-          stock: 1, retired: true)
+          stock: 1, retired: true, weight: 100, length: 10, width: 9, height: 8)
 
         15.times do
-          Product.create(name: counter1, price: 1, seller_id: @seller.id, stock: 1)
+          Product.create(name: counter1, price: 1, seller_id: @seller.id, stock: 1, weight: 100, length: 10, width: 9, height: 8)
           counter1 = counter1.next
         end
 

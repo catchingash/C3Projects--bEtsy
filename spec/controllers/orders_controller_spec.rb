@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe OrdersController, type: :controller do
   let(:test_order) { Order.create }
   let(:test_seller) { Seller.create( { username: "I am a seller name", email: "email@example.com", password: "IAmAPassword", password_confirmation: "IAmAPassword" } ) }
-  let(:test_product) { Product.create(name: "I am a product", price: 1000, seller_id: test_seller.id, stock: 10) }
+  let(:test_product) { Product.create(name: "I am a product", price: 1000, seller_id: test_seller.id, stock: 10, weight: 500, length: 10, width: 7, height: 9) }
   let(:future_date) { "01/01/2020" }
 
   describe "GET #cart" do
@@ -59,7 +59,7 @@ RSpec.describe OrdersController, type: :controller do
     context "adjusting order item quantities" do
       before :each do
         @order = Order.create
-        @product = Product.create(name: "34234ujoiujhe", stock: 1, price: 1, seller_id: 1)
+        @product = Product.create(name: "34234ujoiujhe", stock: 1, price: 1, seller_id: 1, weight: 500, length: 10, width: 7, height: 9)
         @item = OrderItem.create(product_id: @product.id, order_id: @order.id, quantity_ordered: 5)
         session[:order_id] = @order.id
       end
@@ -169,7 +169,7 @@ RSpec.describe OrdersController, type: :controller do
     let(:checkout_buyer_params) { {
       order: {
         buyer_name: "My name", buyer_email: "my_email@example.com",
-        buyer_address: "123 Example St, Cityville, State 12345",
+        buyer_street: "123 Example St", buyer_city: "Cityville", buyer_state: "State", buyer_zip: "12345",
         buyer_card_short: "1234", buyer_card_expiration: future_date
       }
     } }
@@ -202,11 +202,11 @@ RSpec.describe OrdersController, type: :controller do
         expect(test_order.buyer_email).not_to eq(old_email)
       end
 
-      it "updates the order.buyer_address" do
-        old_address = test_order.buyer_address
+      it "updates the order.buyer_street" do
+        old_address = test_order.buyer_street
         patch :update, checkout_buyer_params
         test_order.reload
-        expect(test_order.buyer_address).not_to eq(old_address)
+        expect(test_order.buyer_street).not_to eq(old_address)
       end
 
       it "updates the order.buyer_card_short" do
@@ -262,7 +262,7 @@ RSpec.describe OrdersController, type: :controller do
   end
 
   describe "GET receipt" do
-    let(:checked_out_order) { Order.create( status: "paid", buyer_name: "My name", buyer_email: "my_email@example.com", buyer_address: "123 Example St, Cityville, State 12345", buyer_card_short: "1234", buyer_card_expiration: future_date ) }
+    let(:checked_out_order) { Order.create( status: "paid", buyer_name: "My name", buyer_email: "my_email@example.com", buyer_street: "1234 fake st", buyer_city: "Cityville", buyer_state: "WA", buyer_zip: "12345", buyer_card_short: "1234", buyer_card_expiration: future_date ) }
 
     before :each do
       session[:order_id] = checked_out_order.id
@@ -297,9 +297,9 @@ RSpec.describe OrdersController, type: :controller do
     end
 
     context "when an order is not paid" do
-      let(:test_order_pending) { Order.create( status: "pending", buyer_name: "My name", buyer_email: "my_email@example.com", buyer_address: "123 Example St, Cityville, State 12345", buyer_card_short: "1234", buyer_card_expiration: future_date ) }
-      let(:test_order_complete) { Order.create( status: "complete", buyer_name: "My name", buyer_email: "my_email@example.com", buyer_address: "123 Example St, Cityville, State 12345", buyer_card_short: "1234", buyer_card_expiration: future_date ) }
-      let(:test_order_canceled) { Order.create( status: "canceled", buyer_name: "My name", buyer_email: "my_email@example.com", buyer_address: "123 Example St, Cityville, State 12345", buyer_card_short: "1234", buyer_card_expiration: future_date ) }
+      let(:test_order_pending) { Order.create( status: "pending", buyer_name: "My name", buyer_email: "my_email@example.com", buyer_street: "1234 fake st", buyer_city: "Cityville", buyer_state: "WA", buyer_zip: "12345", buyer_card_short: "1234", buyer_card_expiration: future_date ) }
+      let(:test_order_complete) { Order.create( status: "complete", buyer_name: "My name", buyer_email: "my_email@example.com", buyer_street: "1234 fake st", buyer_city: "Cityville", buyer_state: "WA", buyer_zip: "12345", buyer_card_short: "1234", buyer_card_expiration: future_date ) }
+      let(:test_order_canceled) { Order.create( status: "canceled", buyer_name: "My name", buyer_email: "my_email@example.com", buyer_street: "1234 fake st", buyer_city: "Cityville", buyer_state: "WA", buyer_zip: "12345", buyer_card_short: "1234", buyer_card_expiration: future_date ) }
 
 
       it "redirects to root when 'pending'" do
@@ -331,10 +331,10 @@ RSpec.describe OrdersController, type: :controller do
       @seller.password = @seller.password_confirmation = "password"
       @seller.save
 
-      @product1 = Product.create(name: "astronaut", price: 4_000, seller_id: @seller.id, stock: 5)
-      @product2 = Product.create(name: "dsafkhlaer", price: 125, seller_id: @seller.id, stock: 25)
+      @product1 = Product.create(name: "astronaut", price: 4_000, seller_id: @seller.id, stock: 5, weight: 500, length: 10, width: 7, height: 9)
+      @product2 = Product.create(name: "dsafkhlaer", price: 125, seller_id: @seller.id, stock: 25, weight: 500, length: 10, width: 7, height: 9)
       @order = Order.create(status: "paid", buyer_name: "bob", buyer_email: "bob@bob.bob",
-        buyer_address: "1234 fake st", buyer_card_short: "4567",
+        buyer_street: "1234 fake st", buyer_city: "Cityville", buyer_state: "WA", buyer_zip: "12345", buyer_card_short: "4567",
         buyer_card_expiration: Date.parse("June 5 2086"))
       @item1 = OrderItem.create(product_id: @product1.id, order_id: @order.id, quantity_ordered: 2)
       @item2 = OrderItem.create(product_id: @product2.id, order_id: @order.id, quantity_ordered: 2)
@@ -374,10 +374,10 @@ RSpec.describe OrdersController, type: :controller do
       @seller.password = @seller.password_confirmation = "password"
       @seller.save
 
-      @product1 = Product.create(name: "astronaut", price: 4_000, seller_id: @seller.id, stock: 5)
-      @product2 = Product.create(name: "dsafkhlaer", price: 125, seller_id: @seller.id, stock: 25)
+      @product1 = Product.create(name: "astronaut", price: 4_000, seller_id: @seller.id, stock: 5, weight: 500, length: 10, width: 7, height: 9)
+      @product2 = Product.create(name: "dsafkhlaer", price: 125, seller_id: @seller.id, stock: 25, weight: 500, length: 10, width: 7, height: 9)
       @order = Order.create(status: "paid", buyer_name: "bob", buyer_email: "bob@bob.bob",
-        buyer_address: "1234 fake st", buyer_card_short: "4567",
+        buyer_street: "1234 fake st", buyer_city: "Cityville", buyer_state: "WA", buyer_zip: "12345", buyer_card_short: "4567",
         buyer_card_expiration: Date.parse("June 5 2086"))
       @item1 = OrderItem.create(product_id: @product1.id, order_id: @order.id, quantity_ordered: 2)
       @item2 = OrderItem.create(product_id: @product2.id, order_id: @order.id, quantity_ordered: 2)
