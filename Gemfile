@@ -56,6 +56,8 @@ group :development, :test do
   gem 'awesome_print'
 
   gem 'rspec-rails', '~> 3.0'
+
+  gem 'factory_girl_rails', '~> 4.0'
 end
 
 group :production do
