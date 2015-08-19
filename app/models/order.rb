@@ -22,7 +22,7 @@ class Order < ActiveRecord::Base
     validates_format_of :buyer_email, with: VALID_EMAIL_REGEX
 
     validates_presence_of :buyer_name
-    validates_presence_of :buyer_address
+    validates_presence_of :buyer_street, :buyer_city, :buyer_state, :buyer_zip
 
     validates_presence_of :buyer_card_short
     validates_format_of :buyer_card_short, with: VALID_BUYER_CARD_SHORT_REGEX
