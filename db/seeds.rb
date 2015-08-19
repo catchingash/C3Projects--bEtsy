@@ -53,46 +53,46 @@ END
 products = [
   { name: "Puppy", price: 300, seller_id: 2, stock: 3,
     photo_url: "http://upload.wikimedia.org/wikipedia/commons/9/9c/Tibetan_Terrier_Puppy.jpg",
-    description: lorem_ipsum_description, weight: rando_weight, length: rando_dimension, height: rando_dimension, width: rando dimension },
+    description: lorem_ipsum_description, weight: rando_weight, length: rando_dimension, height: rando_dimension, width: rando dimension},
   { name: "Hat", price: 2000, seller_id: 4, stock: 7,
     photo_url: "https://c1.staticflickr.com/3/2778/4364279708_c5eee8c341.jpg",
-    description: lorem_ipsum_description, weight: rando_weight, length: rando_dimension, height: rando_dimension, width: rando dimension },
+    description: lorem_ipsum_description, weight: rando_weight, length: rando_dimension, height: rando_dimension, width: rando dimension},
   { name: "Shoes", price: 3400, seller_id: 2, stock: 10,
     photo_url: "https://c2.staticflickr.com/6/5538/9642545922_0755b4efaf.jpg",
-    description: lorem_ipsum_description, weight: rando_weight, length: rando_dimension, height: rando_dimension, width: rando dimension },
+    description: lorem_ipsum_description, weight: rando_weight, length: rando_dimension, height: rando_dimension, width: rando dimension},
   { name: "Book", price: 600, seller_id: 7, stock: 2,
     photo_url: "https://c1.staticflickr.com/9/8339/8201700717_0209fcac39_b.jpg",
-    description: lorem_ipsum_description, weight: rando_weight, length: rando_dimension, height: rando_dimension, width: rando dimension },
+    description: lorem_ipsum_description, weight: rando_weight, length: rando_dimension, height: rando_dimension, width: rando dimension},
   { name: "Sunglasses", price: 10000, seller_id: 1, stock: 9,
     photo_url: "https://farm4.staticflickr.com/3429/5758809338_c8d524870d_o_d.jpg",
-    description: lorem_ipsum_description, weight: rando_weight, length: rando_dimension, height: rando_dimension, width: rando dimension },
+    description: lorem_ipsum_description, weight: rando_weight, length: rando_dimension, height: rando_dimension, width: rando dimension},
   { name: "Coffee", price: 1000, seller_id: 6, stock: 4,
     photo_url: "http://www.texample.net/media/tikz/examples/PNG/coffee-cup.png",
-    description: lorem_ipsum_description, weight: rando_weight, length: rando_dimension, height: rando_dimension, width: rando dimension },
+    description: lorem_ipsum_description, weight: rando_weight, length: rando_dimension, height: rando_dimension, width: rando dimension},
   { name: "T-shirt", price: 1300, seller_id: 9, stock: 15,
     photo_url: "https://upload.wikimedia.org/wikipedia/commons/2/24/Blue_Tshirt.jpg",
-    description: lorem_ipsum_description, weight: rando_weight, length: rando_dimension, height: rando_dimension, width: rando dimension },
+    description: lorem_ipsum_description, weight: rando_weight, length: rando_dimension, height: rando_dimension, width: rando dimension},
   { name: "Ring", price: 4000, seller_id: 8, stock: 34,
     photo_url: "https://farm8.staticflickr.com/7242/7162009815_0e0f462ba8_o_d.jpg",
-    description: lorem_ipsum_description, weight: rando_weight, length: rando_dimension, height: rando_dimension, width: rando dimension },
+    description: lorem_ipsum_description, weight: rando_weight, length: rando_dimension, height: rando_dimension, width: rando dimension},
   { name: "Watch", price: 1600, seller_id: 3, stock: 7,
     photo_url: "https://farm4.staticflickr.com/3251/3008469318_2b4844975f_o_d.gif",
-    description: lorem_ipsum_description, weight: rando_weight, length: rando_dimension, height: rando_dimension, width: rando dimension },
+    description: lorem_ipsum_description, weight: rando_weight, length: rando_dimension, height: rando_dimension, width: rando dimension},
   { name: "Markers", price: 25, seller_id: 10, stock: 13,
     photo_url: "https://farm3.staticflickr.com/2749/4355765412_d1bf39be7f_o_d.jpg",
-    description: lorem_ipsum_description, weight: rando_weight, length: rando_dimension, height: rando_dimension, width: rando dimension },
+    description: lorem_ipsum_description, weight: rando_weight, length: rando_dimension, height: rando_dimension, width: rando dimension},
   { name: "Sunscreen", price: 400, seller_id: 5, stock: 45,
     photo_url: "https://farm8.staticflickr.com/7135/7504697726_cc4c931dc7_o.jpg",
-    description: lorem_ipsum_description, weight: rando_weight, length: rando_dimension, height: rando_dimension, width: rando dimension },
+    description: lorem_ipsum_description, weight: rando_weight, length: rando_dimension, height: rando_dimension, width: rando dimension},
   {
     name: "Glass Display Case", price: rando_price, seller_id: rando_seller_id, stock: rando_price/100,
     photo_url: "https://c1.staticflickr.com/9/8810/16913195458_ea0f01f4bc_n.jpg",
-    description: "Great glass display case suitable for showing off a bunch of junk you want to display!", , weight: rando_weight, length: rando_dimension, height: rando_dimension, width: rando dimension
+    description: "Great glass display case suitable for showing off a bunch of junk you want to display!", weight: rando_weight, length: rando_dimension, height: rando_dimension, width: rando dimension
   },
   {
     name: "Extremely Large Flower", price: rando_price, seller_id: rando_seller_id, stock: rando_price/100,
     photo_url: "https://c1.staticflickr.com/9/8792/17358849611_12a343100f_n.jpg",
-    description: "Suitable for use as an art piece. Recommended serving: with a side of baby carriage.", , weight: rando_weight, length: rando_dimension, height: rando_dimension, width: rando dimension
+    description: "Suitable for use as an art piece. Recommended serving: with a side of baby carriage.", weight: rando_weight, length: rando_dimension, height: rando_dimension, width: rando dimension
   },
   {
     name: "Sketchbook", price: rando_price, seller_id: rando_seller_id, stock: rando_price/100,
@@ -102,7 +102,7 @@ products = [
   {
     name: "A Breath Of Fresh Air", price: rando_price, seller_id: rando_seller_id, stock: rando_price/100,
     photo_url: "https://c2.staticflickr.com/8/7415/9409479133_76c94e3c17_n.jpg",
-    description: "Product may come in a tank. Product not guaranteed to be fresh. Product may not be air.", , weight: rando_weight, length: rando_dimension, height: rando_dimension, width: rando dimension
+    description: "Product may come in a tank. Product not guaranteed to be fresh. Product may not be air.", weight: rando_weight, length: rando_dimension, height: rando_dimension, width: rando dimension
   },
   {
     name: "Martial Arts Lessons", price: rando_price, seller_id: rando_seller_id, stock: rando_price/100,
@@ -147,12 +147,12 @@ products = [
   {
     name: "The Bluest Flower", price: rando_price, seller_id: rando_seller_id, stock: rando_price/100,
     photo_url: "https://c2.staticflickr.com/8/7513/15040739534_1dbb27f28b_n.jpg",
-    description: "Italian Alkanet Anchusa azurea. Produces edible, brilliant-blue flowers from spring to fall.", , weight: rando_weight, length: rando_dimension, height: rando_dimension, width: rando dimension
+    description: "Italian Alkanet Anchusa azurea. Produces edible, brilliant-blue flowers from spring to fall.", weight: rando_weight, length: rando_dimension, height: rando_dimension, width: rando dimension
   },
   {
     name: "Stickphast's Office Paste", price: rando_price, seller_id: rando_seller_id, stock: rando_price/100,
     photo_url: "https://c2.staticflickr.com/6/5542/11307158676_46fbc8549d_n.jpg",
-    description: "Image taken from page 284 of 'Monsieur At Home. (From notes made ... in France.)'", , weight: rando_weight, length: rando_dimension, height: rando_dimension, width: rando dimension
+    description: "Image taken from page 284 of 'Monsieur At Home. (From notes made ... in France.)'", weight: rando_weight, length: rando_dimension, height: rando_dimension, width: rando dimension
   },
   {
     name: "Carrots", price: rando_price, seller_id: rando_seller_id, stock: rando_price/100,
@@ -162,7 +162,7 @@ products = [
   {
     name: "Another Spider Masterpiece", price: rando_price, seller_id: rando_seller_id, stock: rando_price/100,
     photo_url: "https://c2.staticflickr.com/8/7348/11139073614_cb39e5fed1_n.jpg",
-    description: "From a very large spider who occasionally eats human young -- but only the winged ones.", , weight: rando_weight, length: rando_dimension, height: rando_dimension, width: rando dimension
+    description: "From a very large spider who occasionally eats human young -- but only the winged ones.", weight: rando_weight, length: rando_dimension, height: rando_dimension, width: rando dimension
   },
   {
     name: "Bicycle", price: rando_price, seller_id: rando_seller_id, stock: rando_price/100,
@@ -187,12 +187,12 @@ products = [
   {
     name: "Portrait Lessons", price: rando_price, seller_id: rando_seller_id, stock: rando_price/100,
     photo_url: "https://c1.staticflickr.com/1/524/19074818999_c67d25a5ea_n.jpg",
-    description: "Learn how to take portraits of the finest vehicular people around.", , weight: rando_weight, length: rando_dimension, height: rando_dimension, width: rando dimension
+    description: "Learn how to take portraits of the finest vehicular people around.", weight: rando_weight, length: rando_dimension, height: rando_dimension, width: rando dimension
   },
   {
     name: "Storm's a-Brewing", price: rando_price, seller_id: rando_seller_id, stock: rando_price/100,
     photo_url: "https://c2.staticflickr.com/8/7554/15972027988_f09692c52b_n.jpg",
-    description: "5lb bag of coffee. Picture not related.", , weight: rando_weight, length: rando_dimension, height: rando_dimension, width: rando dimension
+    description: "5lb bag of coffee. Picture not related.", weight: rando_weight, length: rando_dimension, height: rando_dimension, width: rando dimension
   },
   {
     name: "Fabric", price: rando_price, seller_id: rando_seller_id, stock: rando_price/100,
@@ -232,7 +232,7 @@ products = [
   {
     name: "Cool Shoes", price: rando_price, seller_id: rando_seller_id, stock: rando_price/100,
     photo_url: "https://c1.staticflickr.com/7/6106/6239465912_8fe97b7d4a_n.jpg",
-    description: "I'm at the Pizza Hut. I'm at the Taco Bell. I'm at the Combination Shoes and Sunglasses.", , weight: rando_weight, length: rando_dimension, height: rando_dimension, width: rando dimension
+    description: "I'm at the Pizza Hut. I'm at the Taco Bell. I'm at the Combination Shoes and Sunglasses.", weight: rando_weight, length: rando_dimension, height: rando_dimension, width: rando dimension
   },
   {
     name: "Put a bird on it.", price: rando_price, seller_id: rando_seller_id, stock: rando_price/100,
@@ -257,7 +257,7 @@ products = [
   {
     name: "Cement Bricks", price: rando_price, seller_id: rando_seller_id, stock: rando_price/100,
     photo_url: "https://c1.staticflickr.com/1/439/19869955531_350b3bea50_n.jpg",
-    description: "Price per cubic meter.", , weight: rando_weight, length: rando_dimension, height: rando_dimension, width: rando dimension
+    description: "Price per cubic meter.", weight: rando_weight, length: rando_dimension, height: rando_dimension, width: rando dimension
   },
   {
     name: "Different Blue Shirt", price: rando_price, seller_id: rando_seller_id, stock: rando_price/100,
@@ -272,7 +272,7 @@ products = [
   {
     name: "Velodrome Flower Pot Holder", price: rando_price, seller_id: rando_seller_id, stock: rando_price/100,
     photo_url: "https://c1.staticflickr.com/1/378/19085942430_3228ce689a_n.jpg",
-    description: "So relaxing you'll have to take a nap every time you see it.", , weight: rando_weight, length: rando_dimension, height: rando_dimension, width: rando dimension
+    description: "So relaxing you'll have to take a nap every time you see it.", weight: rando_weight, length: rando_dimension, height: rando_dimension, width: rando dimension
   },
   {
     name: "Duckling", price: rando_price, seller_id: rando_seller_id, stock: rando_price/100,
@@ -287,7 +287,7 @@ products = [
   {
     name: "Golden Sphere", price: rando_price, seller_id: rando_seller_id, stock: rando_price/100,
     photo_url: "https://c2.staticflickr.com/6/5470/17578533596_3cc0f5258d_n.jpg",
-    description: "Not the one from the movie. Does not have ability to manifest your subconsious thoughts.", , weight: rando_weight, length: rando_dimension, height: rando_dimension, width: rando dimension
+    description: "Not the one from the movie. Does not have ability to manifest your subconsious thoughts.", weight: rando_weight, length: rando_dimension, height: rando_dimension, width: rando dimension
   },
   {
     name: "Tattoo", price: rando_price, seller_id: rando_seller_id, stock: rando_price/100,
