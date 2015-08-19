@@ -24,10 +24,10 @@ class OrdersController < ApplicationController
     # hit the URI
     # @response = HTTParty.get(SHIPPING_URI)
     @response = HTTParty.get(SHIPPING_URI, query: query)
-    raise
   end
 
   def shipping
+
     # @ups_option = grab stuff from the hashy mash
     # @fedex_option
   end
