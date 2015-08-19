@@ -3,7 +3,11 @@
 <ul>
   <li>Name: <%= @order.buyer_name %></li>
   <li>Email: <%= @order.buyer_email %></li>
-  <li>Address: <%= @order.buyer_address %></li>
+  <li>Street: <%= @order.buyer_street %></li>
+  <li>City: <%= @order.buyer_city %></li>
+  <li>State: <%= @order.buyer_state %></li>
+  <li>Country: <%= @order.buyer_country %></li>
+  <li>Zip Code: <%= @order.buyer_zip %></li>
   <li>MasterCard: xxxx-<%= @order.buyer_card_short %></li>
   <li>Expiration: <%= @order.buyer_card_expiration %></li>
 </ul>

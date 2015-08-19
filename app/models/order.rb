@@ -22,6 +22,7 @@ class Order < ActiveRecord::Base
     validates_format_of :buyer_email, with: VALID_EMAIL_REGEX
 
     validates_presence_of :buyer_name
+    
     validates_presence_of :buyer_street
     validates_presence_of :buyer_city
     validates_presence_of :buyer_state
