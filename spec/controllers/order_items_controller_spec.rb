@@ -5,7 +5,7 @@ RSpec.describe OrderItemsController, type: :controller do
     let(:initial_quantity) { 3 }
     let(:max_quantity) { 10 }
     let(:test_order) { Order.create(status: "pending") }
-    let(:test_product) { Product.create(name: "buttons", seller_id: 1, price: 1_000, stock: max_quantity) }
+    let(:test_product) { Product.create(name: "buttons", seller_id: 1, price: 1_000, stock: max_quantity, weight: 500, length: 10, width: 7, height: 9) }
     let(:test_order_item) { OrderItem.create(order_id: test_order.id, product_id: test_product.id, quantity_ordered: initial_quantity) }
 
     context "#more: increasing quantity of cart item" do
