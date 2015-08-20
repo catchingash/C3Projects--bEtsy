@@ -4,7 +4,9 @@ class Product < ActiveRecord::Base
  validates :name, presence: true, uniqueness: true
  validates :price, presence: true, numericality: { greater_than: 0 }
  validates :user_id, presence: true
- validates :stock, numericality: {greater_than_or_equal_to: 0}
+ validates :stock, numericality: { greater_than_or_equal_to: 0 }
+ validates :length, :width, :height, presence: true, numericality: { greater_than: 0 }
+ validates :weight, presence: true, numericality: { greater_than: 0 }
 
 # ASSOCIATIONS -----------------------------------------------------------------
 

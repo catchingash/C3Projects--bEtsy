@@ -8,12 +8,13 @@ class Buyer < ActiveRecord::Base
   validates :name,        presence: true
   validates :email,       presence: true, format: /@/
   validates :address,     presence: true
+  validates :city,        presence: true
+  validates :state,       presence: true,
+                          length: { is: 2 }
   validates :zip,         presence: true,
                           numericality: { only_integer: true },
                           length: { in: 4..5}
-  validates :state,       presence: true,
-                          length: { is: 2 }
-  validates :city,        presence: true
+  validates :country,     presence: true
   validates :exp,         presence: true
   validates :credit_card, presence: true,
                           numericality: { only_integer: true },
