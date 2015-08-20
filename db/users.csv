@@ -1,5 +1,5 @@
-name,email,password,password_confirmation,city,state,zip
-Wang Emporium,anita@email.com,1234,1234,Seattle,WA,98002
-Victoria's Little Secrets,victoria@email.com,1234,1234,Portland,OR,97082
-Brittzy’s Bitsy Baubles,brittany@email.com,1234,1234,Seattle,WA,98112
-Magical Minis,elia@email.com,1234,1234,Sherwood,OR,97140
+name,email,password,password_confirmation,address,city,state,zip
+Wang Emporium,anita@email.com,1234,1234,12345 Elm St,Seattle,WA,98002
+Victoria's Little Secrets,victoria@email.com,1234,1234,678 Cherry St,Portland,OR,97082
+Brittzy’s Bitsy Baubles,brittany@email.com,1234,1234,1043 Washington AVE,Seattle,WA,98112
+Magical Minis,elia@email.com,1234,1234,56743 Conzelmann Rd,Sherwood,OR,97140
