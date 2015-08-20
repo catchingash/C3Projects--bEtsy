@@ -18,3 +18,5 @@
 
 .DS_Store
 coverage
+
+/spec/vcr

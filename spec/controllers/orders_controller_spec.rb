@@ -1,4 +1,5 @@
 require 'rails_helper'
+require 'vcr_setup'
 
 RSpec.describe OrdersController, type: :controller do
   let(:test_order) { Order.create }
