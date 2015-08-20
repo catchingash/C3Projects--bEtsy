@@ -27,7 +27,8 @@ class OrdersController < ApplicationController
   end
 
   def shipping
-
+    # @ups = @response["ups"].rates.sort_by(&:price).collect {|rate| [rate.service_name, rate.price, rate.delivery_date]}
+    # @fedex = @response["fedex"].rates.sort_by(&:price).collect {|rate| [rate.service_name, rate.price, rate.delivery_date]}
     # @ups_option = grab stuff from the hashy mash
     # @fedex_option
   end
