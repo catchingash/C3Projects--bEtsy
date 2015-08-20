@@ -27,7 +27,8 @@ Rails.application.routes.draw do
 
   scope :cart do
     get "/", to: "orders#cart", as: "cart"
-    get "/shipping", to: "orders#shipping", as: "shipping"
+    get "/shipping", to: "shippings#quote", as: "shipping"
+    # post "/shipping", to: "shippings#create"
     get "/checkout", to: "orders#checkout", as: "checkout"
     patch "/checkout", to: "orders#update"
     get "/receipt", to: "orders#receipt", as: "receipt"
