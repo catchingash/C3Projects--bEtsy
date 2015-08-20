@@ -14,7 +14,7 @@ CSV.foreach("db/categories.csv", headers: true) do |row|
      email: row[1],
      password: row[2],
      password_confirmation: row[3],
-     address: row[4]
+     address: row[4],
      city: row[5],
      state: row[6],
      zip: row[7]
