@@ -18,6 +18,21 @@
       </div>
 
       <div class="form-group">
+        <%= f.label :address, class: "required" %>
+        <%= f.text_field :address, class: "form-control" %>
+      </div>
+
+      <div class="form-group">
+        <%= f.label :city, class: "required" %>
+        <%= f.text_field :city, class: "form-control" %>
+      </div>
+
+      <div class="form-group">
+        <%= f.label :state, class: "required" %>
+        <%= f.select :state, options_for_select(us_states), class: "form-control" %>
+      </div>
+
+      <div class="form-group">
         <%= f.label :password, class: "required" %>
         <%= f.password_field :password, class: "form-control" %>
       </div>
