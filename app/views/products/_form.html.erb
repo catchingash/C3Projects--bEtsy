@@ -15,6 +15,19 @@
         <%= b.label class: "checkbox-inline" do %>
           <%= b.check_box + b.text.capitalize %>
         <% end %>
+      <h3>Shipping Info</h3>
+
+      <%= f.label :length, class: "required" %>
+      <%= f.number_field :length, class: "form-control" %>
+
+      <%= f.label :width, class: "required"  %>
+      <%= f.number_field :width, class: "form-control" %>
+
+      <%= f.label :height, class: "required"  %>
+      <%= f.number_field :height, class: "form-control" %>
+
+      <%= f.label "weight in ounces", :weight, class: "required"  %>
+      <%= f.number_field(:weight, step: 1), class: "form-control" %>
       <% end %>
     </div>
 
