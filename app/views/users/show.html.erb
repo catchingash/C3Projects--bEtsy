@@ -12,6 +12,7 @@
       <th>Product</th>
       <th>Price</th>
       <th>Stock</th>
+      <th>Shipping Info</th>
       <th>Edit</th>
       <th>Retire</th>
     </tr>
@@ -27,6 +28,14 @@
         </td>
         <td class="text-center">
           <%= product.stock %>
+        </td>
+        <td class="text-center">
+          <ul class="list-group">
+            <li class="list-group-item"> Length: <%= product.length %></li>
+            <li class="list-group-item"> Width: <%= product.width %></li>
+            <li class="list-group-item"> Height: <%= product.height %></li>
+            <li class="list-group-item"> Weight: <%= product.weight %></li>
+          </ul>
         </td>
         <td class="text-center">
           <%= link_to "Edit", edit_product_path(product), class: "btn btn-default" %>
