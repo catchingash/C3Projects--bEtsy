@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150723204312) do
+ActiveRecord::Schema.define(version: 20150820170922) do
 
   create_table "buyers", force: :cascade do |t|
     t.string   "name"
@@ -24,8 +24,9 @@ ActiveRecord::Schema.define(version: 20150723204312) do
     t.integer  "cvv"
     t.string   "exp"
     t.integer  "order_id"
-    t.datetime "created_at",            null: false
-    t.datetime "updated_at",            null: false
+    t.datetime "created_at",                           null: false
+    t.datetime "updated_at",                           null: false
+    t.string   "country",               default: "US", null: false
   end
 
   add_index "buyers", ["order_id"], name: "index_buyers_on_order_id"
@@ -75,6 +76,10 @@ ActiveRecord::Schema.define(version: 20150723204312) do
     t.datetime "created_at",                 null: false
     t.datetime "updated_at",                 null: false
     t.boolean  "retired",    default: false
+    t.string   "length"
+    t.string   "width"
+    t.string   "height"
+    t.string   "weight"
   end
 
   add_index "products", ["user_id"], name: "index_products_on_user_id"
@@ -93,8 +98,13 @@ ActiveRecord::Schema.define(version: 20150723204312) do
     t.string   "name"
     t.string   "email"
     t.string   "password_digest"
-    t.datetime "created_at",      null: false
-    t.datetime "updated_at",      null: false
+    t.datetime "created_at",                     null: false
+    t.datetime "updated_at",                     null: false
+    t.string   "address"
+    t.string   "city"
+    t.string   "state"
+    t.string   "zip"
+    t.string   "country",         default: "US", null: false
   end
 
 end
