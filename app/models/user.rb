@@ -1,6 +1,7 @@
 class User < ActiveRecord::Base
   before_save { self.email = email.downcase }
   has_many :products
+  has_many :packages
   has_many :order_items, :through => :products
 
   validates :name,    presence: true, uniqueness: { case_sensitive: false }
