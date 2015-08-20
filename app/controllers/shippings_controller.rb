@@ -21,6 +21,8 @@ class ShippingsController < ApplicationController
   def quote
     @ups = @response["ups"]
     @fedex = @response["fedex"]
+
+    @shipping = Shipping.new
     # @ups = @response["ups"].rates.sort_by(&:price).collect {|rate| [rate.service_name, rate.price, rate.delivery_date]}
     # @fedex = @response["fedex"].rates.sort_by(&:price).collect {|rate| [rate.service_name, rate.price, rate.delivery_date]}
     # @ups_option = grab stuff from the hashy mash

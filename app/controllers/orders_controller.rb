@@ -27,7 +27,7 @@ class OrdersController < ApplicationController
 
   def update
     if @order.checkout!(checkout_params)
-      redirect_to shipping_path
+      redirect_to shippings_path
     else
       flash.now[:errors] = @order.errors
       @order.attributes = checkout_params
