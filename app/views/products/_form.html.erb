@@ -1,7 +1,8 @@
 <div class="form-group">
   <%= form_for @product, html: {class: "form"} do |f| %>
-  <div class="col-md-4 col-md-offset-2">
-    <%= render partial: "shared/error_messages", locals: { data_type: @product } %>
+    <div class="col-md-4 col-md-offset-2">
+      <%= render partial: "shared/error_messages", locals: { data_type: @product } %>
+
       <h3>Describe your product</h3>
 
       <%= f.label :name %>
@@ -19,45 +20,47 @@
     </div>
 
 
-  <div class="col-md-4">
-    <h3>Add product details</h3>
+    <div class="col-md-4">
+      <h3>Add product details</h3>
 
-    <%= f.label :stock %>
-    <%= f.number_field :stock, class: "form-control" %>
+      <%= f.label :stock %>
+      <%= f.number_field :stock, class: "form-control" %>
 
-    <div class="form-group">
-      <%= f.label :price %>
-      <%= f.number_field :price, class: "form-control", step: 0.01 %>
-    </div>
-
-    <% if form_type %>
       <div class="form-group">
-        <%= f.label :retired %>
-        <%= f.check_box :retired %>
+        <%= f.label :price %>
+        <%= f.number_field :price, class: "form-control", step: 0.01 %>
       </div>
-    <% end %>
 
-    <%= f.label :photo_url %><br>
-    <%= f.collection_select :photo_url, Product.all, :photo_url, :photo_url, include_blank: "--Select a Photo--" %>
+      <% if form_type %>
+        <div class="form-group">
+          <%= f.label :retired %>
+          <%= f.check_box :retired %>
+        </div>
+      <% end %>
 
-    <%= f.hidden_field :user_id, value: @product.user_id %>
-    <br><br>
+      <%= f.label :photo_url %>
+      <br>
+      <%= f.collection_select :photo_url, Product.all, :photo_url, :photo_url, include_blank: "--Select a Photo--" %>
 
-    <h3>Shipping Info</h3>
+      <%= f.hidden_field :user_id, value: @product.user_id %>
+      <br><br>
 
-    <%= f.label :length, class: "required" %>
-    <%= f.number_field :length, step: 0.5, class: "form-control" %>
+      <h3>Shipping Info</h3>
 
-    <%= f.label :width, class: "required"  %>
-    <%= f.number_field :width, step: 0.5, class: "form-control" %>
+      <%= f.label :length, class: "required" %>
+      <%= f.number_field :length, step: 0.5, class: "form-control" %>
 
-    <%= f.label :height, class: "required"  %>
-    <%= f.number_field :height, step: 0.5, class: "form-control" %>
+      <%= f.label :width, class: "required"  %>
+      <%= f.number_field :width, step: 0.5, class: "form-control" %>
 
-    <%= f.label "weight in ounces", class: "required"  %>
-    <%= f.number_field(:weight, step: 1, class: "form-control") %>
+      <%= f.label :height, class: "required"  %>
+      <%= f.number_field :height, step: 0.5, class: "form-control" %>
+
+      <%= f.label "weight in ounces", class: "required"  %>
+      <%= f.number_field(:weight, step: 1, class: "form-control") %>
 
     </div>
+
     <%= f.submit class: "btn btn-default" %>
   <% end %>
   </div>
