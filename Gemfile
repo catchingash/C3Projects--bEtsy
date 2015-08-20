@@ -61,10 +61,11 @@ group :development, :test do
   # for testing
   gem 'rspec-rails', '~>3.0'
   gem 'simplecov', require: false
-  gem "factory_girl_rails", '~> 4.0'
+  gem 'factory_girl_rails', '~> 4.0'
 
 end
 
 group :production do
-    gem 'pg'
+  gem 'pg'
+  gem 'rails_12factor'
 end
