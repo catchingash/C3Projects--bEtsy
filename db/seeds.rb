@@ -13,7 +13,11 @@ CSV.foreach("db/categories.csv", headers: true) do |row|
      name: row[0],
      email: row[1],
      password: row[2],
-     password_confirmation: row[3]
+     password_confirmation: row[3],
+     address: row[4],
+     city: row[5],
+     state: row[6],
+     zip: row[7]
    )
   end
 
@@ -25,7 +29,12 @@ CSV.foreach("db/products.csv", headers: true) do |row|
     desc: row[2],
     stock: row[3],
     photo_url: row[4],
-    user_id: row[5]
+    user_id: row[5],
+    length: row[6],
+    width: row[7],
+    height: row[8],
+    weight: row[9]
+
   )
  end
 
