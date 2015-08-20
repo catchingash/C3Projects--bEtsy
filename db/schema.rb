@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150820170922) do
+ActiveRecord::Schema.define(version: 20150820214432) do
 
   create_table "buyers", force: :cascade do |t|
     t.string   "name"
@@ -54,9 +54,11 @@ ActiveRecord::Schema.define(version: 20150820170922) do
     t.float    "unit_price"
     t.float    "total_price"
     t.string   "status"
+    t.integer  "package_id"
   end
 
   add_index "order_items", ["order_id"], name: "index_order_items_on_order_id"
+  add_index "order_items", ["package_id"], name: "index_order_items_on_package_id"
   add_index "order_items", ["product_id"], name: "index_order_items_on_product_id"
 
   create_table "orders", force: :cascade do |t|
@@ -65,6 +67,22 @@ ActiveRecord::Schema.define(version: 20150820170922) do
     t.datetime "updated_at", null: false
     t.float    "subtotal"
   end
+
+  create_table "packages", force: :cascade do |t|
+    t.float    "weight"
+    t.float    "length"
+    t.float    "width"
+    t.float    "height"
+    t.float    "cost",       null: false
+    t.string   "service",    null: false
+    t.integer  "user_id"
+    t.integer  "buyer_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "packages", ["buyer_id"], name: "index_packages_on_buyer_id"
+  add_index "packages", ["user_id"], name: "index_packages_on_user_id"
 
   create_table "products", force: :cascade do |t|
     t.string   "name"
@@ -76,10 +94,10 @@ ActiveRecord::Schema.define(version: 20150820170922) do
     t.datetime "created_at",                 null: false
     t.datetime "updated_at",                 null: false
     t.boolean  "retired",    default: false
-    t.string   "length"
-    t.string   "width"
-    t.string   "height"
-    t.string   "weight"
+    t.float    "length"
+    t.float    "width"
+    t.float    "height"
+    t.float    "weight"
   end
 
   add_index "products", ["user_id"], name: "index_products_on_user_id"

@@ -1,5 +1,6 @@
 class Buyer < ActiveRecord::Base
   belongs_to :order
+  has_many :packages
 
   # CALLBACK
   after_validation :convert_to_last_four
