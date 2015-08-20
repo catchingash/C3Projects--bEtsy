@@ -1,5 +1,5 @@
 <div class="form-group">
-    <%= form_for @product, html: {class: "form"} do |f| %>
+  <%= form_for @product, html: {class: "form"} do |f| %>
   <div class="col-md-4 col-md-offset-2">
     <%= render partial: "shared/error_messages", locals: { data_type: @product } %>
       <h3>Describe your product</h3>
@@ -15,19 +15,6 @@
         <%= b.label class: "checkbox-inline" do %>
           <%= b.check_box + b.text.capitalize %>
         <% end %>
-      <h3>Shipping Info</h3>
-
-      <%= f.label :length, class: "required" %>
-      <%= f.number_field :length, class: "form-control" %>
-
-      <%= f.label :width, class: "required"  %>
-      <%= f.number_field :width, class: "form-control" %>
-
-      <%= f.label :height, class: "required"  %>
-      <%= f.number_field :height, class: "form-control" %>
-
-      <%= f.label "weight in ounces", :weight, class: "required"  %>
-      <%= f.number_field(:weight, step: 1), class: "form-control" %>
       <% end %>
     </div>
 
@@ -55,6 +42,22 @@
 
     <%= f.hidden_field :user_id, value: @product.user_id %>
     <br><br>
+
+    <h3>Shipping Info</h3>
+
+    <%= f.label :length, class: "required" %>
+    <%= f.number_field :length, step: 0.5, class: "form-control" %>
+
+    <%= f.label :width, class: "required"  %>
+    <%= f.number_field :width, step: 0.5, class: "form-control" %>
+
+    <%= f.label :height, class: "required"  %>
+    <%= f.number_field :height, step: 0.5, class: "form-control" %>
+
+    <%= f.label "weight in ounces", class: "required"  %>
+    <%= f.number_field(:weight, step: 1, class: "form-control") %>
+
+    </div>
     <%= f.submit class: "btn btn-default" %>
   <% end %>
   </div>
