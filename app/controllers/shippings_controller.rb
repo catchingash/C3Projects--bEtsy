@@ -1,11 +1,16 @@
 require 'httparty'
 class ShippingsController < ApplicationController
-  SHIPPING_URI = "http://localhost:3333/"
+
+  if Rails.env.production?
+    SHIPPING_URI = "https://shrouded-inlet-4900.herokuapp.com/"
+  else
+    SHIPPING_UPI = "http://localhost:3333/"
+  end
+
   ORIGIN_HASH = {origin_city: "Texarkana",
                  origin_state: "TX",
                  origin_zip: "75505",
                  origin_country: "US"}
-  # Create an unless block to change this to rails.env during production
 
   before_action :active_shipping_call, only: [:quote]
 
