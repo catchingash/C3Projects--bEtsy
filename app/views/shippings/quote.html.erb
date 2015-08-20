@@ -1,0 +1,40 @@
+<h1>SHIPPING OPTIONS!</h1>
+
+
+  <% @ups.each do |option|%>
+    <%= form_for @shipping do |f| %>
+      <fieldset>
+        <%= f.label :service_name, "Service: #{option[0]}" %>
+        <%= f.hidden_field :service_name, value: option[0] %>
+
+        <%= f.label :price, "Cost: #{option[1]}" %>
+        <%= f.hidden_field :price, value: option[1] %>
+
+        <%= f.label :est_date, "Est. Delivery Date: #{option[2]}" %>
+        <%= f.hidden_field :est_date, value: option[2] %>
+
+        <%= f.hidden_field :carrier, value: "UPS" %>
+
+        <%= f.submit "Select This Option" %>
+      </fieldset>
+    <% end %>
+  <% end %>
+
+  <% @fedex.each do |option|%>
+      <%= form_for @shipping do |f| %>
+      <fieldset>
+        <%= f.label :service_name, "Service: #{option[0]}" %>
+        <%= f.hidden_field :service_name, value: option[0] %>
+
+        <%= f.label :price, "Cost: #{option[1]}" %>
+        <%= f.hidden_field :price, value: option[1] %>
+
+        <%= f.label :est_date, "Est. Delivery Date: #{option[2]}" %>
+        <%= f.hidden_field :est_date, value: option[2] %>
+
+        <%= f.hidden_field :carrier, value: "FedEx" %>
+
+        <%= f.submit "Select This Option", name: option %>
+      </fieldset>
+      <% end %>
+  <% end %>
