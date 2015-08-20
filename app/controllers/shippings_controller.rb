@@ -1,6 +1,6 @@
 require 'httparty'
 class ShippingsController < ApplicationController
-  SHIPPING_URI = "http://localhost:3333/quotes"
+  SHIPPING_URI = "http://localhost:3333/"
   ORIGIN_HASH = {origin_city: "Texarkana",
                  origin_state: "TX",
                  origin_zip: "75505",
@@ -15,7 +15,7 @@ class ShippingsController < ApplicationController
     query = { origin: ORIGIN_HASH, destination: @destination_hash, packages: @packages }
     # hit the URI
     # @response = HTTParty.get(SHIPPING_URI)
-    @response = HTTParty.get(SHIPPING_URI, query: query)
+    @response = HTTParty.get(SHIPPING_URI + "quotes", query: query)
   end
 
   def quote
@@ -33,6 +33,10 @@ class ShippingsController < ApplicationController
     @shipping = Shipping.new(create_params)
     @shipping.order_id = session[:order_id]
     if @shipping.save
+      query = { carrier: @shipping.carrier, service_name: @shipping.service_name,
+                price: @shipping.price, est_date: @shipping.est_date,
+                order_id: @shipping.order_id, store: "TuxBetsy" }
+      HTTParty.post(SHIPPING_URI + "audit", query: query)
       redirect_to receipt_path
     else
       flash.now[:errors] = @shipping.errors
