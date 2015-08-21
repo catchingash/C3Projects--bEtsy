@@ -32,7 +32,7 @@ RSpec.describe ShippingsController, type: :controller do
         expect(controller.send(:get_packages).count).to eq 2
       end
     end
-
+  end
     # We don't think our redirect to root is working, it throws a
     # Module::DelegationError:
     # context "if there is no order in the session" do
@@ -42,6 +42,27 @@ RSpec.describe ShippingsController, type: :controller do
     #   end
     # end
 
+  describe "POST #create" do
+    context "valid params" do
+      let(:valid_params) { {shipping: { carrier: "UPS", price: 3, est_date: "2015-08-21 14:04:29 -0700", service_name: "UPS Fancy", order_id: 1}} }
 
+      it "creates a shipping record" do
+        session[:order_id] = 1
+        VCR.use_cassette 'controller/query_response' do
+          post :create, valid_params
+          expect(Shipping.all.count).to eq(1)
+        end
+      end
+    end
+
+    context "invalid params" do
+      let(:invalid_params) { {shipping: { carrier: "UPS", price: "3"}} }
+
+      it "renders the quote page again" do
+        session[:order_id] = 1
+          post :create, invalid_params
+          expect(response).to render_template(:quote)
+      end
+    end
   end
 end
