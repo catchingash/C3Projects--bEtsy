@@ -20,7 +20,7 @@ class ShippingsController < ApplicationController
     get_destination
     get_packages
     query = { origin: ORIGIN_HASH, destination: @destination_hash, packages: @packages }
-    # hit the URI
+    # hit the URI, displays error if request takes too long
     begin
       status = Timeout::timeout(6) {
         @response = HTTParty.get(SHIPPING_URI + "quotes", query: query)
@@ -30,15 +30,12 @@ class ShippingsController < ApplicationController
     end
   end
 
+  # renders the shipping options for the customer
   def quote
     @ups = @response["ups"]
     @fedex = @response["fedex"]
 
     @shipping = Shipping.new
-    # @ups = @response["ups"].rates.sort_by(&:price).collect {|rate| [rate.service_name, rate.price, rate.delivery_date]}
-    # @fedex = @response["fedex"].rates.sort_by(&:price).collect {|rate| [rate.service_name, rate.price, rate.delivery_date]}
-    # @ups_option = grab stuff from the hashy mash
-    # @fedex_option
   end
 
   def create
@@ -58,6 +55,7 @@ class ShippingsController < ApplicationController
 
   private
 
+    # munge the address to prepare to pass to the api
     def get_destination
       if session[:order_id].nil?
         redirect_to cart_path
@@ -72,6 +70,7 @@ class ShippingsController < ApplicationController
       end
     end
 
+    # munge the packages to prepare to pass to the api
     def get_packages
       if session[:order_id].nil?
         redirect_to cart_path
@@ -91,7 +90,7 @@ class ShippingsController < ApplicationController
           items_hash[counter] = each_item_hash
           counter += 1
         end
-        # items_string = items_hash.to_s.gsub(":", "").gsub("=>", ": ")
+
         @packages = items_hash
       end
     end
