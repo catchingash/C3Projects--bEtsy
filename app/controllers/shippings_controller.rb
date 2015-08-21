@@ -22,7 +22,7 @@ class ShippingsController < ApplicationController
     query = { origin: ORIGIN_HASH, destination: @destination_hash, packages: @packages }
     # hit the URI, displays error if request takes too long
     begin
-      status = Timeout::timeout(6) {
+      status = Timeout::timeout(20) {
         @response = HTTParty.get(SHIPPING_URI + "quotes", query: query)
       }
     rescue Timeout::Error
