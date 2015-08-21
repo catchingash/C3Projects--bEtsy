@@ -52,7 +52,7 @@ class ShippingClient
             customer: "Bitsy",
             order_id: order_id,
             service: package.service,
-            cost: package.cost,
+            cost: package.cost * 100,
             origin: package.user.zip,
             destination: package.buyer.zip
           }

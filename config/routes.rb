@@ -44,6 +44,7 @@ Rails.application.routes.draw do
   # checkout
   get  '/checkout' => 'buyers#new'
   post '/checkout' => 'buyers#create'
+  patch '/checkout' => 'buyers#create' # in case a buyer returns to their buyer info view
 
   # to select shipping service
   get '/checkout/shipping', to: 'buyers#shipping_options', as: 'shipping_options'

@@ -2,16 +2,20 @@ class BuyersController < ApplicationController
   include ApplicationHelper
 
   def new
-    @buyer = Buyer.new
+    order = Order.find(session[:order_id])
+    @buyer = order.buyer ? order.buyer : Buyer.new
     @buyer.order_id = session[:order_id]
+
     if logged_in?
       @user = User.find(session[:user_id])
     end
   end
 
   def create
-    @buyer = Buyer.new(buyer_params)
-    if @buyer.save
+    order = Order.find(session[:order_id])
+    @buyer = order.buyer ? order.buyer : Buyer.new
+
+    if @buyer.update(buyer_params)
       redirect_to shipping_options_path
     else
       render :new
@@ -24,14 +28,15 @@ class BuyersController < ApplicationController
   end
 
   def order_complete
-    raise # FIXME: implement this action!
+    Package.update_ship_info(params[:packages])
+    transaction
 
     redirect_to buyer_confirmation_path(session[:order_id])
   end
 
   def confirmation
     @order = Order.find(session[:order_id])
-    transaction
+    session[:order_id] = nil
   end
 
   private

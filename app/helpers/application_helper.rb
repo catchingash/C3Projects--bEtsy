@@ -34,8 +34,7 @@ module ApplicationHelper
 
   def transaction
     order = Order.find(session[:order_id])
-    @order_items = OrderItem.where("order_id = ?", params[:order_id])
-    @order_items.each do |item|
+    order.order_items.each do |item|
       product = item.product
       bought = item.quantity #how many were bought
       inventory = product.stock #inventory
@@ -45,8 +44,7 @@ module ApplicationHelper
       item.update(status: 'paid')
     end
 
-    order.update(status: "paid")
-    session[:order_id] = nil
+    order.update(status: 'paid')
   end
 
   def us_states
