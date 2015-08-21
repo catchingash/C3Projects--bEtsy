@@ -1,65 +1,53 @@
 <div class="row">
+  <div class="col-md-offset-1">
   <h1>Shipping Options</h1>
+  </div>
 </div>
 <div class="row">
+  <div class="col-md-4  col-md-offset-1">
   <h3>UPS Options</h3>
-  <div class="col-md-6">
   <% @ups.each do |option|%>
-    <% price = convert_to_money(option[1]) %>
-    <% if option[2].nil? %>
-      <% date = "No estimate available" %>
-    <% else %>
-      <% date = option[2].to_date.strftime("%b %d, %Y") %>
-    <% end %>
+    <% price = display_dollars(option[1]) %>
+    <% date = convert_date(option[2]) %>
 
     <%= form_for @shipping, html: {class: "form" } do |f| %>
-      <div class="form-group">
+      <fieldset class="shipping-ups">
         <%= f.label :service_name, "Service: #{option[0]}" %>
         <%= f.hidden_field :service_name, value: option[0] %>
-      </div>
-      <div class="form-group">
+
         <%= f.label :price, "Cost: #{price}" %>
         <%= f.hidden_field :price, value: option[1] %>
-      </div>
-      <div class="form-group">
+
         <%= f.label :est_date, "Est. Delivery Date: #{date}" %>
         <%= f.hidden_field :est_date, value: option[2] %>
         <%= f.hidden_field :carrier, value: "UPS" %>
-      </div>
-        <%= f.submit "Select This Option", class: "btn btn-primary no-border-buttons" %>
+
+        <%= f.submit "Select This Option", class: "btn btn-info no-border-buttons" %>
       </fieldset>
     <% end %>
   <% end %>
   </div>
-</div>
-<div class="row">
-  <div class="col-md-6 col-md-offset-6">
+
+  <div class="col-md-4">
   <h3>FedEx Options</h3>
   <% @fedex.each do |option|%>
-    <% price = convert_to_money(option[1]) %>
-    <% if option[2].nil? %>
-      <% date = "No estimate available" %>
-    <% else %>
-      <% date = option[2].to_date.strftime("%b %d, %Y") %>
-    <% end %>
+    <% price = display_dollars(option[1]) %>
+    <% date = convert_date(option[2]) %>
 
-    <%= form_for @shipping do |f| %>
-    <fieldset>
-    <div class="form-group">
+    <%= form_for @shipping, html: {class: "form" } do |f| %>
+    <fieldset class="shipping-fedex">
+
       <%= f.label :service_name, "Service: #{option[0]}" %>
       <%= f.hidden_field :service_name, value: option[0] %>
-    </div>
-    <div class="form-group">
+
       <%= f.label :price, "Cost: #{price}" %>
       <%= f.hidden_field :price, value: option[1] %>
-    </div>
-    <div class="form-group">
+
       <%= f.label :est_date, "Est. Delivery Date: #{date}" %>
       <%= f.hidden_field :est_date, value: option[2] %>
       <%= f.hidden_field :carrier, value: "FedEx" %>
-    </div>
 
-      <%= f.submit "Select This Option", class: "btn btn-primary no-border-buttons" %>
+      <%= f.submit "Select This Option", class: "btn btn-info no-border-buttons" %>
     </fieldset>
     <% end %>
   <% end %>
