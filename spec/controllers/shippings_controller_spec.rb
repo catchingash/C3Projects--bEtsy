@@ -8,6 +8,21 @@ RSpec.describe ShippingsController, type: :controller do
   end
 
   describe "get_destination" do
-    create :order
+    it "creates a hash containing destination info" do
+      create :order
+      session[:order_id] = 1
+      expect(controller.send(:get_destination)).to be_an_instance_of Hash
+    end
+  end
+
+  describe "get_packages" do
+    it "creates a hash containing packages for each order item" do
+      create :order
+      create :product
+      create :order_item
+      session[:order_id] = 1
+      expect(controller.send(:get_packages)).to be_an_instance_of Hash
+      binding.pry
+    end
   end
 end
