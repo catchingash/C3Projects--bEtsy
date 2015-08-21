@@ -22,7 +22,6 @@ RSpec.describe ShippingsController, type: :controller do
       create :order_item
       session[:order_id] = 1
       expect(controller.send(:get_packages)).to be_an_instance_of Hash
-      binding.pry
     end
   end
 end
