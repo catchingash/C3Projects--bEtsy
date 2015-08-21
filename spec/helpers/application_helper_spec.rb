@@ -13,6 +13,22 @@ RSpec.describe ApplicationHelper, type: :helper do
     end
   end
 
+  describe "convert_date" do
+    it "takes in a date string and converts it to human readable" do
+      date_with_time = "2015-08-31 17:20:13"
+      date_no_time = "2015-08-31"
+
+      expect(convert_date(date_with_time)).to eq("Aug 31, 2015")
+      expect(convert_date(date_no_time)).to eq("Aug 31, 2015")
+    end
+
+    it "displays a custom string if the date is nil" do
+      nil_date = nil
+
+      expect(convert_date(nil_date)).to eq("No estimate available")
+    end
+  end
+
   describe "cart_display_text" do
     before :each do
       @order = Order.create
