@@ -28,14 +28,15 @@ class BuyersController < ApplicationController
   end
 
   def order_complete
-    raise # FIXME: implement this action!
+    Package.update_ship_info(params[:packages])
+    transaction
 
     redirect_to buyer_confirmation_path(session[:order_id])
   end
 
   def confirmation
     @order = Order.find(session[:order_id])
-    transaction
+    session[:order_id] = nil
   end
 
   private

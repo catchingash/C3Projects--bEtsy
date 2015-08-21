@@ -44,8 +44,7 @@ module ApplicationHelper
       item.update(status: 'paid')
     end
 
-    order.update(status: "paid")
-    session[:order_id] = nil
+    order.update(status: 'paid')
   end
 
   def us_states
