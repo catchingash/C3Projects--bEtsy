@@ -25,6 +25,10 @@ class OrderItem < ActiveRecord::Base
   self.status = "complete"
   end
 
+  def total_price
+    unit_price * quantity
+  end
+
   private
 
   def set_status
@@ -33,6 +37,5 @@ class OrderItem < ActiveRecord::Base
 
   def finalize
     self[:unit_price] = unit_price
-    self[:total_price] = quantity * self[:unit_price]
   end
 end
