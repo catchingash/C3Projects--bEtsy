@@ -14,7 +14,7 @@ class BuyersController < ApplicationController
     if @buyer.save
       redirect_to shipping_options_path
     else
-      render 'new'
+      render :new
     end
   end
 
@@ -35,7 +35,9 @@ class BuyersController < ApplicationController
 
   private
 
-    def buyer_params
-      params.require(:buyer).permit(:name, :email, :address, :city, :state, :zip, :credit_card, :cvv, :exp, :order_id)
-    end
+  def buyer_params
+    params.require(:buyer).permit(:name, :email,
+      :address, :city, :state, :zip,
+      :credit_card, :cvv, :exp, :order_id)
+  end
 end
