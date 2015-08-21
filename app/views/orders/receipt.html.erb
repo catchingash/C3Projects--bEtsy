@@ -2,11 +2,8 @@
   <h1>RECEIPT</h1>
 </div>
 
-<%= render "display_nonpending_order_items" %>
+<%= render "display_receipt_order_items" %>
 <h5>Purchase Date: <%= convert_date(@order.created_at) %></h5>
 <h5>Order Status: <%= @order.status.titlecase %></h5>
-<h5>Shipping Method: <%= @shipping.service_name %></h5>
-<h5>Est. Delivery Date: <%= convert_date(@shipping.est_date) %></h5>
-<h5>Shipping Cost: <%= display_dollars(@shipping.price) %></h5>
 
 <%= render "display_buyer_info" %>
