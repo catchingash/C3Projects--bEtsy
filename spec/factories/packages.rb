@@ -6,7 +6,7 @@ FactoryGirl.define do
     height 15.500
     cost 1
     service "MyString"
-    user_id 1
-    buyer_id 1
+    user
+    buyer
   end
 end

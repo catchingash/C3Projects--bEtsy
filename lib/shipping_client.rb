@@ -2,8 +2,8 @@ require 'httparty'
 
 class ShippingClient
   TIMEOUT = 10 # TODO: decide if a 10-second timeout is appropriate
-  RATE_COMPARE_URI = Rails.env.production? ? "IMPLEMENT ME" : "http://localhost:3000/rates"
-  # FIXME: production URI not implemented
+  RATE_COMPARE_URI = Rails.env.production? ? "https://adashipping.herokuapp.com/rates" : "http://localhost:3000/rates"
+  SHIPPING_LOG_URI = Rails.env.production? ? "https://adashipping.herokuapp.com/logs/new" : "http://localhost:3000/logs/new"
 
   def self.handle_timeouts
     begin
@@ -43,9 +43,23 @@ class ShippingClient
     end
   end
 
-  def self.log
+  def self.log(package)
+    order_id = package.buyer.order_id
     handle_timeouts do
-      # FIXME: Katie is going to fill this in :)
+      HTTParty.post(SHIPPING_LOG_URI,
+        query: {
+          log: {
+            customer: "Bitsy",
+            order_id: order_id,
+            service: package.service,
+            cost: package.cost,
+            origin: package.user.zip,
+            destination: package.buyer.zip
+          }
+        },
+        timeout: TIMEOUT
+        )
     end
   end
+
 end
