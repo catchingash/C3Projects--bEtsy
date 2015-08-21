@@ -8,24 +8,24 @@ RSpec.describe User, type: :model do
     end
 
     it "requires the name to be unique" do
-      user1 = create :user
-      user2 = build :user
+      user1 = create :user, name: "frank"
+      user2 = build :user, name: "frank"
 
       expect(user2).to_not be_valid
       expect(user2.errors.keys).to include(:name)
     end
 
     it "requires the name to be unique, not case-sensitive, FRANK is the same as frank" do
-      user1 = create :user
-      user2 = build :user, name: "FRANK"
+      user1 = create :user, name: "FRANK"
+      user2 = build :user, name: "frank"
 
       expect(user2).to_not be_valid
       expect(user2.errors.keys).to include(:name)
     end
 
     it "requires the email to be unique" do
-      user1 = create :user
-      user2 = build :user, name: "Franklin"
+      user1 = create :user, email: "email@example.com"
+      user2 = build :user, email: "email@example.com"
 
       expect(user2).to_not be_valid
       expect(user2.errors.keys).to include(:email)
