@@ -38,11 +38,11 @@ class ShippingClient
     #     timeout: 10 # TODO: decide if a 10-second timeout is appropriate
     #   )
     end
+  end
 
-    def self.log
-      handle_timeouts do
-        # FIXME: Katie is going to fill this in :)
-      end
+  def self.log
+    handle_timeouts do
+      # FIXME: Katie is going to fill this in :)
     end
   end
 end
