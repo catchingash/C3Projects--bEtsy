@@ -6,12 +6,46 @@
 <div class="row">
   <div class="col-md-4  col-md-offset-1">
   <h3>UPS Options</h3>
-  <% @ups.each do |option|%>
-    <% price = display_dollars(option[1]) %>
-    <% date = convert_date(option[2]) %>
+  <!-- if the api fails to process, it will send a string error -->
+  <% if @ups.class == String %>
+    <%= @ups %>
+  <% else %>
+    <% @ups.each do |option|%>
+      <% price = display_dollars(option[1]) %>
+      <% date = convert_date(option[2]) %>
 
-    <%= form_for @shipping, html: {class: "form" } do |f| %>
-      <fieldset class="shipping-ups">
+      <%= form_for @shipping, html: {class: "form" } do |f| %>
+        <fieldset class="shipping-ups">
+          <%= f.label :service_name, "Service: #{option[0]}" %>
+          <%= f.hidden_field :service_name, value: option[0] %>
+
+          <%= f.label :price, "Cost: #{price}" %>
+          <%= f.hidden_field :price, value: option[1] %>
+
+          <%= f.label :est_date, "Est. Delivery Date: #{date}" %>
+          <%= f.hidden_field :est_date, value: option[2] %>
+          <%= f.hidden_field :carrier, value: "UPS" %>
+
+          <%= f.submit "Select This Option", class: "btn btn-info no-border-buttons" %>
+        </fieldset>
+      <% end %>
+    <% end %>
+  <% end %>
+  </div>
+
+  <div class="col-md-4">
+  <h3>FedEx Options</h3>
+  <!-- if the api fails to process, it will send a string error -->
+  <% if @fedex.class == String %>
+    <%= @fedex %>
+  <% else %>
+    <% @fedex.each do |option|%>
+      <% price = display_dollars(option[1]) %>
+      <% date = convert_date(option[2]) %>
+
+      <%= form_for @shipping, html: {class: "form" } do |f| %>
+      <fieldset class="shipping-fedex">
+
         <%= f.label :service_name, "Service: #{option[0]}" %>
         <%= f.hidden_field :service_name, value: option[0] %>
 
@@ -20,35 +54,11 @@
 
         <%= f.label :est_date, "Est. Delivery Date: #{date}" %>
         <%= f.hidden_field :est_date, value: option[2] %>
-        <%= f.hidden_field :carrier, value: "UPS" %>
+        <%= f.hidden_field :carrier, value: "FedEx" %>
 
         <%= f.submit "Select This Option", class: "btn btn-info no-border-buttons" %>
       </fieldset>
-    <% end %>
-  <% end %>
-  </div>
-
-  <div class="col-md-4">
-  <h3>FedEx Options</h3>
-  <% @fedex.each do |option|%>
-    <% price = display_dollars(option[1]) %>
-    <% date = convert_date(option[2]) %>
-
-    <%= form_for @shipping, html: {class: "form" } do |f| %>
-    <fieldset class="shipping-fedex">
-
-      <%= f.label :service_name, "Service: #{option[0]}" %>
-      <%= f.hidden_field :service_name, value: option[0] %>
-
-      <%= f.label :price, "Cost: #{price}" %>
-      <%= f.hidden_field :price, value: option[1] %>
-
-      <%= f.label :est_date, "Est. Delivery Date: #{date}" %>
-      <%= f.hidden_field :est_date, value: option[2] %>
-      <%= f.hidden_field :carrier, value: "FedEx" %>
-
-      <%= f.submit "Select This Option", class: "btn btn-info no-border-buttons" %>
-    </fieldset>
+      <% end %>
     <% end %>
   <% end %>
   </div>
