@@ -4,7 +4,6 @@ FactoryGirl.define do
   order
   product
   unit_price 3
-  total_price 3
   status "pending"
   package
  end
