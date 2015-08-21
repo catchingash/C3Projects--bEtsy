@@ -8,6 +8,6 @@ FactoryGirl.define do
     city "Seattle"
     exp "exp"
     credit_card 12345678901234
-    order_id 1
+    order
   end
 end
