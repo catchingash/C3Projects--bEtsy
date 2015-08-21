@@ -1,8 +1,8 @@
 require 'httparty'
 
 class ShippingClient
-  RATE_COMPARE_URI = Rails.env.production? ? "IMPLEMENT ME" : "http://localhost:3000/rates"
-  SHIPPING_LOG_URI = Rails.env.production? ? "Production URI" : "http://localhost:3000/logs/new"
+  RATE_COMPARE_URI = Rails.env.production? ? "https://adashipping.herokuapp.com/rates" : "http://localhost:3000/rates"
+  SHIPPING_LOG_URI = Rails.env.production? ? "https://adashipping.herokuapp.com/logs/new" : "http://localhost:3000/logs/new"
   # FIXME: production URI not implemented
 
   def self.handle_timeouts
