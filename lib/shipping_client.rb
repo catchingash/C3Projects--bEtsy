@@ -1,6 +1,7 @@
 require 'httparty'
 
 class ShippingClient
+  TIMEOUT = 10 # TODO: decide if a 10-second timeout is appropriate
   RATE_COMPARE_URI = Rails.env.production? ? "IMPLEMENT ME" : "http://localhost:3000/rates"
   # FIXME: production URI not implemented
 
@@ -37,7 +38,7 @@ class ShippingClient
             units: :imperial
           }
         },
-        timeout: 10 # TODO: decide if a 10-second timeout is appropriate
+        timeout: TIMEOUT
       )
     end
   end
