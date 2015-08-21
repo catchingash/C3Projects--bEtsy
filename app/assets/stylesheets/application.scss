@@ -92,3 +92,17 @@ body {
 label {
   display: block;
 }
+
+.shipping-fedex {
+  background-color: rgba(59, 30, 113, .2);
+  text-align: center;
+  padding:10px;
+  margin-bottom: 6px;
+}
+
+.shipping-ups{
+  background-color: rgba(128, 94, 11, .2);
+  text-align: center;
+  padding:10px;
+  margin-bottom: 6px;
+}
