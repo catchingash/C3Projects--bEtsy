@@ -3,7 +3,10 @@
 </div>
 <h2>Customer Info</h2>
 <p>Name: <%= @order.buyer_name %></p>
-<p>Address: <%= @order.buyer_address %></p>
+<p>Address: <%= @order.buyer_street %></p>
+<p>City: <%= @order.buyer_city %></p>
+<p>State: <%= @order.buyer_state %></p>
+<p>Zip: <%= @order.buyer_zip %></p>
 <p>Credit Card: xxxx <%= @order.buyer_card_short %></p>
 <p>Credit Cart Expiration: <%= @order.buyer_card_expiration %></p>
 
