@@ -45,6 +45,10 @@ Rails.application.routes.draw do
   get  '/checkout' => 'buyers#new'
   post '/checkout' => 'buyers#create'
 
+  # to select shipping service
+  get '/checkout/shipping', to: 'buyers#shipping_options', as: 'shipping_options'
+  post '/checkout/shipping', to: 'buyers#order_complete'
+
   get '/confirmation/:order_id' =>'buyers#confirmation', as: 'buyer_confirmation'
 
   # shipped
