@@ -1,6 +1,7 @@
 <div class="container">
   <div class="row">
     <h2><center>Please Select Your Shipping Options</center></h2>
+    <h3><center>Subtotal <%= number_to_currency(@total) %></h3>
 
     <%= form_tag shipping_options_path, method: :post, class: "form" do %>
       <% @estimates.each_with_index do |estimate, index| %>

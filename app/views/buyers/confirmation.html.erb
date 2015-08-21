@@ -17,7 +17,18 @@
         </tr>
           <% end %>
           <tr><td colspan="3"></td></tr>
-          <tr><td colspan="3" class="text-right"> <%= number_to_currency(@total) %> </td></tr>
+          <tr>
+            <td>Subtotal</td>
+            <td colspan="2" class="text-right"> <%= number_to_currency(@order.subtotal) %> </td>
+          </tr>
+          <tr>
+            <td>Shipping</td>
+            <td colspan="2" class="text-right"> <%= number_to_currency(@order.shipping_total) %> </td>
+          </tr>
+          <tr>
+            <td>Total</td>
+            <td colspan="2" class="text-right"> <%= number_to_currency(@order.total) %> </td>
+          </tr>
         <td colspan="3" class="text-right"> <%= @order.status.capitalize %></td>
       </table>
 
