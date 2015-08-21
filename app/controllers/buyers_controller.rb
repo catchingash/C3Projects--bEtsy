@@ -14,16 +14,17 @@ class BuyersController < ApplicationController
     if @buyer.save
       redirect_to shipping_options_path
     else
-      render 'new'
+      render :new
     end
   end
 
   def shipping_options
-    # FIXME: implement
+    order = Order.find(session[:order_id])
+    @estimates = order.fetch_shipping_rates
   end
 
   def order_complete
-    # FIXME: implement
+    raise # FIXME: implement this action!
 
     redirect_to buyer_confirmation_path(session[:order_id])
   end
@@ -35,7 +36,9 @@ class BuyersController < ApplicationController
 
   private
 
-    def buyer_params
-      params.require(:buyer).permit(:name, :email, :address, :city, :state, :zip, :credit_card, :cvv, :exp, :order_id)
-    end
+  def buyer_params
+    params.require(:buyer).permit(:name, :email,
+      :address, :city, :state, :zip,
+      :credit_card, :cvv, :exp, :order_id)
+  end
 end

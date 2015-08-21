@@ -1,6 +1,7 @@
 require 'httparty'
 
 class ShippingClient
+  TIMEOUT = 10 # TODO: decide if a 10-second timeout is appropriate
   RATE_COMPARE_URI = Rails.env.production? ? "https://adashipping.herokuapp.com/rates" : "http://localhost:3000/rates"
   SHIPPING_LOG_URI = Rails.env.production? ? "https://adashipping.herokuapp.com/logs/new" : "http://localhost:3000/logs/new"
 
@@ -37,7 +38,7 @@ class ShippingClient
             units: :imperial
           }
         },
-        timeout: 10 # TODO: decide if a 10-second timeout is appropriate
+        timeout: TIMEOUT
       )
     end
   end
@@ -56,7 +57,7 @@ class ShippingClient
             destination: package.buyer.zip
           }
         },
-        timeout: 10
+        timeout: TIMEOUT
         )
     end
   end

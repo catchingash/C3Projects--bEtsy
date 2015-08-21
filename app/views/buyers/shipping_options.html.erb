@@ -1,0 +1,25 @@
+<div class="container">
+  <div class="row">
+    <h2><center>Please Select Your Shipping Options</center></h2>
+
+    <%= form_tag shipping_options_path, method: :post, class: "form" do %>
+      <% @estimates.each_with_index do |estimate, index| %>
+        <% estimate.each do |package, rates| %>
+          <h3>Box <%= index + 1 %></h3>
+
+          <div class="package_list">
+            <% package.order_items.each do |order_item| %>
+              <h4><%= order_item.product.name %></h4>
+              <p><%= link_to image_tag(order_item.product.photo_url, class: "img-thumbnail cart-image"), product_path(order_item.product.id) %></p>
+            <% end %>
+
+            <%= select_tag "packages[#{package.id}]", options_for_select(rates.collect{ |rate| ["#{rate["service"]} - #{number_to_currency(rate["price"]/100)}", rate["service"]] }) %>
+          </div>
+
+        <% end %>
+      <% end %>
+
+      <%= submit_tag "Complete Purchase", class: "btn btn-warning" %>
+    <% end %>
+  </div>
+</div>
