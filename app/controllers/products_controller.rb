@@ -22,7 +22,7 @@ class ProductsController < ApplicationController
     if @product.save
       redirect_to product_path(@product)
     else
-      render 'new'
+      render :new
     end
   end
 
@@ -56,7 +56,8 @@ class ProductsController < ApplicationController
     def product_params
       params.require(:product).permit(
         :name, :price, :desc, :stock, :photo_url, :length, :weight, :height, :width, :user_id, :retired,
-        :category_ids => [], :categories_attributes => [:id, :name])
+        :category_ids => [], :categories_attributes => [:id, :name]
+      )
     end
 
     def merchant_exist?

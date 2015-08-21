@@ -13,32 +13,34 @@ class ShippingClient
     end
   end
 
-  # # FIXME: WIP!
-  def self.rates(buyer, seller, package) # OPTIMIZE: it would be nice to not pass in the objects.
-    # handle_timeouts do
-    #   HTTParty.post(RATE_COMPARE_URI,
-    #     query: {
-    #       origin: {
-    #         city: buyer.city,
-    #         state: buyer.state,
-    #         zip: buyer.zip,
-    #         country: buyer.country
-    #       },
-    #       destination: {
-    #         city: seller.city,
-    #         state: seller.state,
-    #         zip: seller.zip,
-    #         country: seller.country
-    #       },
-    #       package: {
-    #         weight: 12,
-    #         dimensions: [15, 10, 4.5],
-    #         units: :imperial
-    #       }
-    #     },
-    #     timeout: 10 # TODO: decide if a 10-second timeout is appropriate
-    #   )
-    # end
+  def self.rates(package)
+    buyer = package.buyer
+    seller = package.user
+
+    handle_timeouts do
+      HTTParty.post(RATE_COMPARE_URI,
+        query: {
+          origin: {
+            city: buyer.city,
+            state: buyer.state,
+            zip: buyer.zip,
+            country: buyer.country
+          },
+          destination: {
+            city: seller.city,
+            state: seller.state,
+            zip: seller.zip,
+            country: seller.country
+          },
+          package: {
+            weight: package.weight,
+            dimensions: [package.length, package.width, package.height],
+            units: :imperial
+          }
+        },
+        timeout: 10 # TODO: decide if a 10-second timeout is appropriate
+      )
+    end
   end
 
   def self.log(package)
@@ -57,7 +59,6 @@ class ShippingClient
         },
         timeout: 10
         )
-      # FIXME: Katie is going to fill this in :)
     end
   end
 

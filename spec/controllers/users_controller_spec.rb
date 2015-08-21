@@ -6,7 +6,7 @@ RSpec.describe UsersController, type: :controller do
 
   describe "GET #show and GET #new" do
     before :each do
-      @user = User.create(name: "first_user", email: "name@email.com", password_digest: "foobar")
+      @user = create(:user)
       session[:user_id] = @user.id
     end
 
@@ -26,20 +26,7 @@ RSpec.describe UsersController, type: :controller do
   describe "POST #create" do
 
     context "Valid user params" do
-      before :each do
-        @user = User.new(user_params[:user])
-      end
-
-      let(:user_params) do
-        {
-          user: {
-            name: 'second_user',
-            email: 'first_user@email.com',
-            password: 'ComplicatedPassword',
-            password_confirmation: 'ComplicatedPassword'
-          }
-        }
-      end
+      let(:user_params) { { user: attributes_for(:user) } }
 
       it "creates a new user" do
         post :create, user_params
@@ -53,20 +40,7 @@ RSpec.describe UsersController, type: :controller do
     end
 
     context "Invalid user params" do
-      before :each do
-        @user = User.new(user_params[:user])
-      end
-
-      let(:user_params) do
-        {
-          user: {
-            name: '',
-            email: 'third_user@email.com',
-            password: 'ComplicatedPassword',
-            password_confirmation: 'ComplicatedPassword'
-          }
-        }
-      end
+      let(:user_params) { { user: attributes_for(:user, city: nil) } }
 
       it "does not persist invalid user" do
         post :create, user_params

@@ -17,7 +17,7 @@ RSpec.describe ProductsController, type: :controller do
 
   describe "GET #show" do
     before :each do
-      @product = Product.create(name: 'product', price: 10, user_id: 1, stock: 1)
+      @product = create(:product)
     end
 
     it "returns successfully with an HTTP 200 status code" do
@@ -37,13 +37,13 @@ RSpec.describe ProductsController, type: :controller do
 
   describe "GET #new" do
     before :each do
-      @user = User.create(name: "vikushonok", email: "vika@email.com", password_digest: "VerySmartPassword")
-      session[:user_id] = @user.id
+      user = create(:user)
+      session[:user_id] = user.id
+
+      get :new, user_id: user
     end
 
     it "renders the new view" do
-      get :new, user_id: @user
-
       expect(response).to render_template("new")
     end
   end
@@ -53,63 +53,35 @@ RSpec.describe ProductsController, type: :controller do
   describe "POST #create" do
     context "valid params" do
       before :each do
-        @user = User.create(name: "vikushonok", email: "vika@email.com", password_digest: "VerySmartPassword")
-        session[:user_id] = @user.id
-        @product = Product.new(product_params[:product])
+        user = create(:user)
+        session[:user_id] = user.id
+
+        post :create, product: attributes_for(:product, user_id: user)
       end
 
-        let(:product_params) do
-          {
-            product: {
-              name: 'product',
-              price: 10.99,
-              stock: 5,
-              user_id: 1,
-            }
-          }
-        end
-
       it "creates a product" do
-        post :create, product_params
-
         expect(Product.count).to eq 1
       end
 
       it "redirects to the product show page" do
-        post :create, product_params
-
         expect(subject).to redirect_to(product_path(assigns(:product)))
       end
+    end
 
-      context "invalid params" do
-        before :each do
-          @user = User.create(name: "vikushonok2", email: "vika2@email.com", password_digest: "VerySmartPassword")
-          session[:user_id] = @user.id
-          @product = Product.new(product_params[:product])
-        end
+    context "invalid params (stock < 0)" do
+      before :each do
+        user = create(:user)
+        session[:user_id] = user.id
 
-          let(:product_params) do
-            {
-              product: {
-                name: 'product',
-                price: 10.99,
-                stock: -1,
-                user_id: 1,
-              }
-            }
-          end
+        post :create, product: attributes_for(:product, user_id: user.id, stock: -1)
+      end
 
-        it "doesn't save a product, if the stock is -1" do
-          post :create, product_params
+      it "doesn't save a product" do
+        expect(Product.count).to eq 0
+      end
 
-          expect(Product.count).to eq 0
-        end
-
-        it "redirects to a new product page" do
-          post :create, product_params
-
-          expect(response).to render_template("new")
-        end
+      it "redirects to a new product page" do
+        expect(response).to render_template("new")
       end
     end
   end
@@ -118,14 +90,15 @@ RSpec.describe ProductsController, type: :controller do
 
   describe "GET #edit" do
     before :each do
-      @user = User.create(name: "vikushonok", email: "vika@email.com", password_digest: "VerySmartPassword")
-      session[:user_id] = @user.id
+      user = create(:user)
+      product = create(:product, user: user)
+      session[:user_id] = user.id
+
+      get :edit, id: product.id
     end
 
-    it "renders the new view" do
-      get :new, user_id: @user
-
-      expect(response).to render_template("new")
+    it "renders the edit view" do
+      expect(response).to render_template("edit")
     end
   end
 
@@ -134,31 +107,22 @@ RSpec.describe ProductsController, type: :controller do
   describe "PUT #update" do
     context "valid params" do
       before :each do
-        @user = User.create(name: "vikushonok", email: "vika@email.com", password_digest: "VerySmartPassword")
-        session[:user_id] = @user.id
-        @product = Product.create(name: 'product', price: 10, user_id: 1, stock: 1)
+        user = create(:user)
+        session[:user_id] = user.id
+        @product = create(:product, user: user)
       end
 
-      let(:product_params) do
-        {
-          product: {
-            name: 'product_changed_name',
-            price: 10.99,
-            stock: 10,
-            user_id: 1
-          }
-        }
-      end
+      let(:update_params) { { product: { name: 'product_changed_name', price: 10.99, stock: 10 } } }
 
       it "updates a product" do
-        put :update, { id: @product.id }.merge(product_params)
+        put :update, { id: @product.id }.merge(update_params)
         @product.reload
 
         expect(Product.find(1).name).to eq 'product_changed_name'
       end
 
       it "redirects to merchant product show page" do
-        put :update, { id: @product.id }.merge(product_params)
+        put :update, { id: @product.id }.merge(update_params)
         @product.reload
 
         expect(response).to redirect_to(user_path(@product.user_id))
@@ -167,34 +131,23 @@ RSpec.describe ProductsController, type: :controller do
 
     context "invalid product params" do
       before :each do
-        @user = User.create(name: "vikushonok", email: "vika@email.com", password_digest: "VerySmartPassword")
-        session[:user_id] = @user.id
-        @product = Product.create(name: 'product', price: 10, user_id: 1, stock: 1)
-      end
+        user = create(:user)
+        session[:user_id] = user.id
 
-      let(:product_params) do
-        {
-          product: {
-            name: "",
-            price: 10.99,
-            stock: 10,
-            user_id: 1
-          }
-        }
+        @product_params = attributes_for(:product, user_id: user.id, name: 'fishies')
+        @product = Product.create(@product_params)
+
+        @product_params[:name] = nil
+        put :update, { id: @product.id }.merge({ product: @product_params })
+        @product.reload
       end
 
       it "doesn't update the product" do
-        put :update, { id: @product.id }.merge(product_params)
-        @product.reload
-
-        expect(@product.name).to eq 'product'
+        expect(@product.name).to eq 'fishies'
       end
 
-      it "redirects to the edit page " do
-        put :update, { id: @product.id }.merge(product_params)
-        @product.reload
-
-        expect(response).to render_template("edit", session[:user_id])
+      it "redirects to the edit page" do
+        expect(response).to render_template('edit', session[:user_id])
       end
     end
   end
@@ -202,15 +155,15 @@ RSpec.describe ProductsController, type: :controller do
   # RETIRE ACTION__________________________________________________________________
 
   describe "PATCH#retire" do
-
     before :each do
-      @user = User.create(name: "vikushonok", email: "vika@email.com", password_digest: "VerySmartPassword")
-      session[:user_id] = @user.id
-      @product = Product.create(name: 'product', price: 10, user_id: 1, stock: 1)
+      user = create(:user)
+      session[:user_id] = user.id
+
+      @product = create(:product, user: user)
     end
 
     it "retires product and redirects to the merchant product page " do
-      patch :retire, { id: @product.user_id }
+      patch :retire, { id: @product.id }
       @product.reload
 
       expect(response).to redirect_to(user_path(@product.user_id))
@@ -221,15 +174,14 @@ RSpec.describe ProductsController, type: :controller do
   # MERCHANT_PRODUCTS ACTION__________________________________________________________________
 
   describe "GET#merchant_products" do
-
     before :each do
-      @user = User.create(name: "vikushonok", email: "vika@email.com", password_digest: "VerySmartPassword")
-      session[:user_id] = @user.id
+      user = create(:user)
+      session[:user_id] = user.id
+
+      get :merchant_products, { id: user.id }
     end
 
     it "renders merchant products page " do
-      get :merchant_products, { id: @user.id }
-
       expect(response).to render_template("merchant_products", session[:user_id])
     end
   end
