@@ -1,0 +1,37 @@
+<table class="table table-striped table-condensed table-hover">
+  <tr>
+    <th>Product</th>
+    <th>Quantity</th>
+    <th>Price</th>
+    <th>Product Total</th>
+    <th>Seller</th>
+  </tr>
+  <% @order.order_items.each do |item| %>
+    <tr>
+      <td><%= link_to "#{item.product.name}", product_path(item.product.id)  %></td>
+      <td><%= item.quantity_ordered %></td>
+      <td><%= display_dollars(item.product.price) %></td>
+      <td><%= display_dollars(item.total_item_price) %></td>
+      <td><%= item.product.seller.username %></td>
+    </tr>
+  <% end %>
+  <tr>
+    <th>Shipping Option</th>
+    <th>Est. Date</th>
+    <th></th>
+    <th>Shipping Price</th>
+    <th></th>
+  </tr>
+  <tr>
+    <td><%= @shipping.service_name %></td>
+    <td><%= convert_date(@shipping.est_date) %></td>
+    <td></td>
+    <td><%= display_dollars(@shipping.price) %></td>
+    <td></td>
+  </tr>
+  <tr>
+    <!-- !L this should use Lindsey's display_dollars helper once it exists! -->
+    <th colspan="3">Total:</th>
+    <th colspan="2"><%= display_dollars(@order.total_order_price + @shipping.price) %></th>
+  </tr>
+</table>
