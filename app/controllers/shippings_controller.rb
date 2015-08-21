@@ -1,10 +1,12 @@
 require 'httparty'
+require 'timeout'
+
 class ShippingsController < ApplicationController
 
   if Rails.env.production?
     SHIPPING_URI = "https://shrouded-inlet-4900.herokuapp.com/"
   else
-    SHIPPING_UPI = "http://localhost:3333/"
+    SHIPPING_URI = "http://localhost:3333/"
   end
 
   ORIGIN_HASH = {origin_city: "Texarkana",
@@ -19,8 +21,13 @@ class ShippingsController < ApplicationController
     get_packages
     query = { origin: ORIGIN_HASH, destination: @destination_hash, packages: @packages }
     # hit the URI
-    # @response = HTTParty.get(SHIPPING_URI)
-    @response = HTTParty.get(SHIPPING_URI + "quotes", query: query)
+    begin
+      status = Timeout::timeout(1) {
+        @response = HTTParty.get(SHIPPING_URI + "quotes", query: query)
+      }
+    rescue Timeout::Error
+      redirect_to :back, flash: { errors: ERRORS[:timeout] }
+    end
   end
 
   def quote
