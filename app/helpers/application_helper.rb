@@ -35,13 +35,13 @@ module ApplicationHelper
   def transaction
     order = Order.find(session[:order_id])
     @order_items = OrderItem.where("order_id = ?", params[:order_id])
-    total = order.subtotal
     @order_items.each do |item|
-      bought = item.quantity #how many were bought
       product = item.product
-      inventory = item.product.stock #inventory
-      inventory = inventory - bought
-      product.update(stock: inventory)
+      bought = item.quantity #how many were bought
+      inventory = product.stock #inventory
+
+      new_inventory = inventory - bought
+      product.update(stock: new_inventory)
       item.update(status: 'paid')
     end
 

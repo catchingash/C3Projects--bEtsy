@@ -12,10 +12,20 @@ class BuyersController < ApplicationController
   def create
     @buyer = Buyer.new(buyer_params)
     if @buyer.save
-      redirect_to buyer_confirmation_path(@buyer.order_id)
+      redirect_to shipping_options_path
     else
       render 'new'
     end
+  end
+
+  def shipping_options
+    # FIXME: implement
+  end
+
+  def order_complete
+    # FIXME: implement
+
+    redirect_to buyer_confirmation_path(session[:order_id])
   end
 
   def confirmation

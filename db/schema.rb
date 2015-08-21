@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150820214432) do
+ActiveRecord::Schema.define(version: 20150821145910) do
 
   create_table "buyers", force: :cascade do |t|
     t.string   "name"
@@ -73,8 +73,8 @@ ActiveRecord::Schema.define(version: 20150820214432) do
     t.float    "length"
     t.float    "width"
     t.float    "height"
-    t.float    "cost",       null: false
-    t.string   "service",    null: false
+    t.float    "cost"
+    t.string   "service"
     t.integer  "user_id"
     t.integer  "buyer_id"
     t.datetime "created_at", null: false
