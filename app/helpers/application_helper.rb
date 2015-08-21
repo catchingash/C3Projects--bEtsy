@@ -3,6 +3,14 @@ module ApplicationHelper
     number_to_currency(cents/100.00)
   end
 
+  def convert_date(date)
+    if date.nil?
+      "No estimate available"
+    else
+      date.to_date.strftime("%b %d, %Y")
+    end
+  end
+
   def cart_display_text
     display_text = "Cart"
 
