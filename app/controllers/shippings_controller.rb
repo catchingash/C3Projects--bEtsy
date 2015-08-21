@@ -34,7 +34,6 @@ class ShippingsController < ApplicationController
   def quote
     @ups = @response["ups"]
     @fedex = @response["fedex"]
-
     @shipping = Shipping.new
   end
 
