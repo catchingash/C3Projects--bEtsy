@@ -19,11 +19,12 @@ class BuyersController < ApplicationController
   end
 
   def shipping_options
-    # FIXME: implement
+    order = Order.find(session[:order_id])
+    @estimates = order.fetch_shipping_rates
   end
 
   def order_complete
-    # FIXME: implement
+    raise # FIXME: implement this action!
 
     redirect_to buyer_confirmation_path(session[:order_id])
   end

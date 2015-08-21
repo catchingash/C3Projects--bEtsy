@@ -30,6 +30,18 @@ a:hover {
 }
 
 
+.package_list {
+  border-radius: 10px;
+  // border: 2px solid gray;
+
+  background-color: $background;
+
+  padding: 1em;
+  margin-left: 1em;
+  margin-right: 1em;
+  margin-bottom: 2em;
+}
+
 /* Navbar ------------------------------------------------------------------ */
 
  .navbar-brand {
