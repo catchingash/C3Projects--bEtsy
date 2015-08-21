@@ -6,4 +6,12 @@
 
 <%= link_to "<< Back to cart", cart_path %>
 
-<%= render "buyer_info_form" %>
+<% if @order.shipping_type %>
+  <%= render "display_shipping_info" %>
+  <%= link_to "<< Ship to a different location", remove_shipping_path, method: :patch %>
+  <%= render "buyer_info_form" %>
+<% elsif @response %>
+  <%= render "display_shipping_estimate" %>
+<% else %>
+  <%= render "shipping_estimate_form" %>
+<% end %>

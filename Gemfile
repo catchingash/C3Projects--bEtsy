@@ -26,6 +26,8 @@ gem 'bcrypt', '~> 3.1.7'
 
 gem 'bootstrap-sass', '~> 3.3.5'
 
+gem 'httparty'
+
 # Use Unicorn as the app server
 # gem 'unicorn'
 
@@ -56,9 +58,15 @@ group :development, :test do
   gem 'awesome_print'
 
   gem 'rspec-rails', '~> 3.0'
+
 end
 
 group :production do
   gem 'pg'
   gem 'rails_12factor'
+end
+
+group :test do
+  gem "vcr"
+  gem "webmock"
 end

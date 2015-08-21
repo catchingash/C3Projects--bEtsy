@@ -1,5 +1,7 @@
+require "#{ Rails.root }/lib/shipping_api"
+
 class OrdersController < ApplicationController
-  before_action :set_order, only: [:cart, :checkout, :add_to_cart, :update, :receipt]
+  before_action :set_order, only: [:cart, :update_shipping, :remove_shipping, :checkout, :add_to_cart, :update, :receipt]
   before_action :set_seller_order, only: [:show]
   before_action :set_product, only: [:add_to_cart]
   before_action :set_seller, only: [:index, :show]
@@ -9,6 +11,18 @@ class OrdersController < ApplicationController
 
   def checkout
     @order.prepare_checkout!
+    if all_shipping_params?
+      @response = ShippingAPI.call_shipping_api(
+        params[:city],
+        params[:state],
+        params[:zip],
+        params[:country]
+      )
+      if @response.is_a?(Hash)
+        flash[:errors] = @response
+        @response = nil
+      end
+    end
     flash[:errors] = @order.errors unless @order.errors.empty?
   end
 
@@ -23,8 +37,23 @@ class OrdersController < ApplicationController
     redirect_to product_path(@product)
   end
 
+  def update_shipping
+    @order.update(shipping_params)
+    redirect_to action: :checkout
+  end
+
+  def remove_shipping
+    @order.update(
+      shipping_type: nil,
+      shipping_price: 0,
+      shipping_estimate: nil
+    )
+    redirect_to action: :checkout
+  end
+
   def update
     if @order.checkout!(checkout_params)
+      ShippingAPI.return_info_to_shipping_api(@order)
       redirect_to receipt_path
     else
       flash.now[:errors] = @order.errors
@@ -56,6 +85,10 @@ class OrdersController < ApplicationController
       params.require(:order).permit(:buyer_name, :buyer_email, :buyer_address, :buyer_card_short, :buyer_card_expiration)
     end
 
+    def shipping_params
+      params.require(:order).permit(:shipping_type, :shipping_price, :shipping_estimate)
+    end
+
     def set_order
       if session[:order_id] && Order.find_by(id: session[:order_id])
         @order = Order.find(session[:order_id])
@@ -71,5 +104,13 @@ class OrdersController < ApplicationController
 
     def set_product
       @product = Product.find(params[:id])
+    end
+
+    def all_shipping_params?
+      if params[:city] && params[:state] && params[:country] && params[:zip]
+        true
+      else
+        false
+      end
     end
 end
