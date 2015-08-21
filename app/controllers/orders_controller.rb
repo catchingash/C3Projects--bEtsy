@@ -37,6 +37,7 @@ class OrdersController < ApplicationController
 
   def receipt
     if @order.status == "paid"
+      @shipping = Shipping.find_by(order_id: session[:order_id])
       render :receipt
       session[:order_id] = nil
     else
